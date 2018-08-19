@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="150dp"
+  android:layout_marginBottom="5dp"
+  android:layout_marginLeft="20dp"
+  android:layout_marginRight="20dp"
+  android:layout_marginTop="5dp"
+  android:clickable="true"
+  android:elevation="5dp"
+  android:focusable="true"
+  android:foreground="?android:attr/selectableItemBackground"
+  app:cardCornerRadius="5dp"
+  tools:targetApi="lollipop">
+
+  <android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <TextView
+      android:id="@+id/textView"
+      android:layout_width="100dp"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="8dp"
+      android:layout_marginEnd="8dp"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="8dp"
+      android:text="VS"
+      android:textAlignment="center"
+      android:textColor="@color/primary_text"
+      android:textSize="20sp"
+      android:textStyle="bold"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+      android:id="@+id/tvTime"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="8dp"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="5dp"
+      android:drawablePadding="10dp"
+      android:gravity="center_vertical"
+      android:text="@string/time_sample"
+      android:textColor="@color/primary_text"
+      android:textSize="16sp"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+      android:id="@+id/ivHome"
+      android:layout_width="70dp"
+      android:layout_height="70dp"
+      android:layout_marginBottom="8dp"
+      android:layout_marginEnd="8dp"
+      android:layout_marginTop="8dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@+id/textView"
+      app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@drawable/ic_launcher_background"/>
+
+    <ImageView
+      android:id="@+id/ivAway"
+      android:layout_width="70dp"
+      android:layout_height="70dp"
+      android:layout_marginBottom="8dp"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="8dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/textView"
+      app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@drawable/ic_launcher_background"/>
+
+    <TextView
+      android:id="@+id/tvHome"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Manchester United"
+      android:textColor="@color/primary_text"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="@+id/ivHome"
+      app:layout_constraintStart_toStartOf="@+id/ivHome"
+      app:layout_constraintTop_toBottomOf="@+id/ivHome"/>
+
+    <TextView
+      android:id="@+id/tvAway"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Manchester City"
+      android:textColor="@color/primary_text"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="@+id/ivAway"
+      app:layout_constraintStart_toStartOf="@+id/ivAway"
+      app:layout_constraintTop_toBottomOf="@+id/ivAway"/>
+
+  </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="colorPrimary">#fff</color>
+  <color name="colorPrimaryDark">#707070</color>
+  <color name="colorAccent">#4885ed</color>
+
+  <!--flat colors-->
+  <color name="flatColorLightRed">#e74c3c</color>
+  <color name="flatColorLightYellow">#f1c40f</color>
+  <color name="flatColorLightGreen">#2ecc71</color>
+  <color name="flatColorLightBlue">#3498db</color>
+  <color name="darkWhite">#EBEBEB</color>
+  <color name="lighterDark">#727272</color>
+  <color name="darkwhiteTransparent">#EBEBEBEE</color>
+  <color name="transparent_grey">#4D000055</color>
+  <!--transparent material colors-->
+  <color name="transparent_green">#d900e676</color>
+  <color name="transparent_blue">#d903a9f4</color>
+</resources>

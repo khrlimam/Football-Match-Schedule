@@ -1,0 +1,40 @@
+<resources>
+  <string name="app_name">Football Match Schedule</string>
+  <string name="title_activity_match_schedule">MatchSchedule</string>
+  <string name="title_home">Home</string>
+  <string name="title_dashboard">Dashboard</string>
+  <string name="title_notifications">Notifications</string>
+  <string name="next_match">Next Match</string>
+  <string name="previous_match">Previous Match</string>
+  <string name="title_activity_main2">Main2Activity</string>
+  <string name="action_settings">Settings</string>
+  <string name="section_format">Hello World from section: %1$d</string>
+  <string name="header_text">Text Example</string>
+  <string name="example">Example Text</string>
+  <string name="preparingData">Preparing your data ...</string>
+
+  <string-array name="rygb">
+    <item>@color/flatColorLightRed</item>
+    <item>@color/flatColorLightYellow</item>
+    <item>@color/flatColorLightGreen</item>
+    <item>@color/flatColorLightBlue</item>
+  </string-array>
+
+  <string-array name="rygbCircle">
+    <item>@drawable/circle</item>
+    <item>@drawable/circle_yellow</item>
+    <item>@drawable/circle_green</item>
+    <item>@drawable/circle_blue</item>
+  </string-array>
+  <string name="title_activity_schedules">Schedules</string>
+  <string name="favorites">Favorites</string>
+  <string name="oneof">1 of 5</string>
+  <string name="subtitle">on Wednessday, 9 July 2018</string>
+  <string name="example_long_text">Manchester United wins the match against Liverpool with score 5!</string>
+  <string name="schedules">Schedules</string>
+  <string name="match_news">Match News</string>
+  <string name="time_sample">09:00</string>
+  <string name="sample_date">Wed, 9 July 2018</string>
+
+
+</resources>

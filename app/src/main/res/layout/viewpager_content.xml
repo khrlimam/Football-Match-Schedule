@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="UselessParent">
+
+    <ImageView
+      android:id="@+id/imageView"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:scaleType="centerCrop"
+      app:layout_constraintBottom_toTopOf="@+id/tvFooter"
+      app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@drawable/ic_launcher_background"/>
+
+    <TextView
+      android:id="@+id/tvTagLine"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom"
+      android:background="@drawable/linear_transparent_black"
+      android:padding="20dp"
+      android:text="@string/example_long_text"
+      android:textColor="@android:color/white"
+      android:textSize="21sp"/>
+
+  </FrameLayout>
+
+</LinearLayout>
