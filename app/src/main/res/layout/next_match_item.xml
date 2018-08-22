@@ -4,26 +4,26 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="150dp"
+  android:layout_height="130dp"
   android:layout_marginBottom="5dp"
   android:layout_marginLeft="20dp"
   android:layout_marginRight="20dp"
   android:layout_marginTop="5dp"
-  android:clickable="true"
   android:elevation="5dp"
   android:focusable="true"
-  android:foreground="?android:attr/selectableItemBackground"
   app:cardCornerRadius="5dp"
   tools:targetApi="lollipop">
 
   <android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    android:paddingBottom="20dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
 
     <TextView
-      android:id="@+id/textView"
-      android:layout_width="100dp"
+      android:id="@+id/tvVs"
+      android:layout_width="80dp"
       android:layout_height="wrap_content"
       android:layout_marginBottom="8dp"
       android:layout_marginEnd="8dp"
@@ -45,13 +45,18 @@
       android:layout_height="wrap_content"
       android:layout_marginEnd="8dp"
       android:layout_marginStart="8dp"
-      android:layout_marginTop="5dp"
-      android:drawablePadding="10dp"
+      android:background="@drawable/radius_grey_bg"
+      android:drawablePadding="5dp"
+      android:drawableStart="@drawable/ic_access_time_black_15dp"
       android:gravity="center_vertical"
+      android:paddingBottom="5dp"
+      android:paddingLeft="10dp"
+      android:paddingRight="10dp"
+      android:paddingTop="5dp"
       android:text="@string/time_sample"
+      android:textAlignment="center"
       android:textColor="@color/primary_text"
-      android:textSize="16sp"
-      android:textStyle="bold"
+      android:textSize="13sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"/>
@@ -64,9 +69,8 @@
       android:layout_marginEnd="8dp"
       android:layout_marginTop="8dp"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toStartOf="@+id/textView"
-      app:layout_constraintTop_toTopOf="parent"
-      app:srcCompat="@drawable/ic_launcher_background"/>
+      app:layout_constraintEnd_toStartOf="@+id/tvVs"
+      app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
       android:id="@+id/ivAway"
@@ -76,15 +80,15 @@
       android:layout_marginStart="8dp"
       android:layout_marginTop="8dp"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toEndOf="@+id/textView"
-      app:layout_constraintTop_toTopOf="parent"
-      app:srcCompat="@drawable/ic_launcher_background"/>
+      app:layout_constraintStart_toEndOf="@+id/tvVs"
+      app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
       android:id="@+id/tvHome"
-      android:layout_width="wrap_content"
+      android:layout_width="150dp"
       android:layout_height="wrap_content"
       android:text="Manchester United"
+      android:textAlignment="center"
       android:textColor="@color/primary_text"
       android:textStyle="bold"
       app:layout_constraintEnd_toEndOf="@+id/ivHome"
@@ -93,9 +97,10 @@
 
     <TextView
       android:id="@+id/tvAway"
-      android:layout_width="wrap_content"
+      android:layout_width="150dp"
       android:layout_height="wrap_content"
-      android:text="Manchester City"
+      android:text="Huddersfield Town"
+      android:textAlignment="center"
       android:textColor="@color/primary_text"
       android:textStyle="bold"
       app:layout_constraintEnd_toEndOf="@+id/ivAway"

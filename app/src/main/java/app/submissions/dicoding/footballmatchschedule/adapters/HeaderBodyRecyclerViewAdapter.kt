@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import app.submissions.dicoding.footballmatchschedule.R
+import app.submissions.dicoding.footballmatchschedule.exts.fontGoogleProductBold
 import app.submissions.dicoding.footballmatchschedule.models.Event
 import app.submissions.dicoding.footballmatchschedule.models.holders.DataType
 import app.submissions.dicoding.footballmatchschedule.models.holders.ItemBodyHolder
@@ -25,12 +26,10 @@ class HeaderBodyRecyclerViewAdapter(private val matches: List<DataType>,
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BodyHeaderViewHolder {
     val inflater: LayoutInflater = LayoutInflater.from(parent.context)
     when (viewType) {
-      DataType.HEADER -> {
+      DataType.HEADER ->
         holder = HeaderViewHolder(inflater.inflate(R.layout.header_item, parent, false))
-      }
-      DataType.BODY -> {
+      DataType.BODY ->
         holder = BodyViewHolder(inflater.inflate(R.layout.next_match_item, parent, false), listener)
-      }
     }
     return holder
   }
@@ -48,6 +47,7 @@ class HeaderBodyRecyclerViewAdapter(private val matches: List<DataType>,
   class HeaderViewHolder(view: View) : BodyHeaderViewHolder(view), AnkoLogger {
 
     override fun bind(data: DataType) {
+      itemView.tvDate.fontGoogleProductBold()
       val item: ItemHeaderHolder = data as ItemHeaderHolder
       itemView.tvDate.text = item.header
     }
@@ -58,11 +58,16 @@ class HeaderBodyRecyclerViewAdapter(private val matches: List<DataType>,
     override fun bind(data: DataType) {
       data as ItemBodyHolder
       val body: Event = data.body
+      itemView.tvTime.fontGoogleProductBold()
+      itemView.tvHome.fontGoogleProductBold()
+      itemView.tvAway.fontGoogleProductBold()
+      itemView.tvVs.fontGoogleProductBold()
+
       itemView.tvTime.text = body.getTime()
-      itemView.tvHome?.text = body.strHomeTeam
-      itemView.tvAway?.text = body.strAwayTeam
-      body.teamHomeBadge { Glide.with(itemView.context).load(it).into(itemView.ivHome) }
-      body.teamAwayBadge { Glide.with(itemView.context).load(it).into(itemView.ivAway) }
+      itemView.tvHome.text = body.strHomeTeam
+      itemView.tvAway.text = body.strAwayTeam
+      body.teamHomeBadge { Glide.with(itemView.context).load(it).thumbnail(.1f).into(itemView.ivHome) }
+      body.teamAwayBadge { Glide.with(itemView.context).load(it).thumbnail(.1f).into(itemView.ivAway) }
 
       itemView.setOnClickListener { listener(data.body) }
     }

@@ -17,8 +17,7 @@
       android:layout_height="match_parent"
       android:scaleType="centerCrop"
       app:layout_constraintBottom_toTopOf="@+id/tvFooter"
-      app:layout_constraintTop_toTopOf="parent"
-      app:srcCompat="@drawable/ic_launcher_background"/>
+      app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
       android:id="@+id/tvTagLine"

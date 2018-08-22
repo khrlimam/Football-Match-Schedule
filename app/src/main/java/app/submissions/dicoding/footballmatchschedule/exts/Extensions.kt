@@ -1,8 +1,12 @@
 package app.submissions.dicoding.footballmatchschedule.exts
 
-import android.graphics.Typeface
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.TextView
+import app.submissions.dicoding.footballmatchschedule.R
+import app.submissions.dicoding.footballmatchschedule.fabric.FontProducer
+import com.bumptech.glide.Glide
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -25,11 +29,22 @@ fun Observable<*>.handleSafely(): Observable<*> {
 }
 
 fun TextView.fontGoogleProductRegular() {
-  val font = Typeface.createFromAsset(context.assets, "fonts/Product Sans Regular.ttf")
+  val font = FontProducer.googleProductRegularFont(context.assets)
   typeface = font
 }
 
 fun TextView.fontGoogleProductBold() {
-  val font = Typeface.createFromAsset(context.assets, "fonts/Product Sans Bold.ttf")
+  val font = FontProducer.googleProductBoldFont(context.assets)
   typeface = font
+}
+
+fun ImageView.loadWithGlide(url: String) {
+  Glide.with(this)
+      .load(url)
+      .thumbnail(.1f)
+      .into(this)
+}
+
+fun ImageView.startScaleAnimation() {
+  startAnimation(AnimationUtils.loadAnimation(context, R.anim.scale))
 }

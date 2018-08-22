@@ -1,15 +1,19 @@
 package app.submissions.dicoding.footballmatchschedule.fragments
 
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import app.submissions.dicoding.footballmatchschedule.BuildConfig
 import app.submissions.dicoding.footballmatchschedule.R
+import app.submissions.dicoding.footballmatchschedule.SeeDetail
 import app.submissions.dicoding.footballmatchschedule.adapters.RecyclerViewAdapterWithItemViewPager
 import app.submissions.dicoding.footballmatchschedule.exts.gone
 import app.submissions.dicoding.footballmatchschedule.exts.visible
+import app.submissions.dicoding.footballmatchschedule.models.Event
 import app.submissions.dicoding.footballmatchschedule.models.holders.MatchNewsHolder
 import app.submissions.dicoding.footballmatchschedule.presenters.PreviousMatchPresenter
 import app.submissions.dicoding.footballmatchschedule.presenters.behavior.PreviousMatchBehavior
@@ -18,12 +22,17 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.okButton
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.ctx
+import org.jetbrains.anko.support.v4.intentFor
 
 class PreviousMatch : Fragment(), AnkoLogger {
 
   private val presenter: PreviousMatchPresenter = PreviousMatchPresenter(MyBehavior())
   private var dataSchedules: MutableList<MatchNewsHolder> = mutableListOf()
-  private var adapter = RecyclerViewAdapterWithItemViewPager(dataSchedules)
+  private val seeDetail: (Event) -> Unit = {
+    startActivity(intentFor<SeeDetail>(BuildConfig.EVENT_DATA to it),
+        activity?.let { it1 -> ActivityOptionsCompat.makeSceneTransitionAnimation(it1).toBundle() })
+  }
+  private var adapter = RecyclerViewAdapterWithItemViewPager(dataSchedules, seeDetail)
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     return inflater.inflate(R.layout.recycler_view, container, false)
