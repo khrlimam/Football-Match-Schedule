@@ -55,15 +55,15 @@ class TimelinePresenter(val behavior: TimelineBehavior) {
 
   private inner class OnLineUpFormatted : LineupBehavior {
     override fun onLineUpFormatted(data: Map<LineupPresenter.LINEUPS, List<String>?>) {
-      val map: MutableMap<String, String> = mutableMapOf()
-      data[HOME_DEFENSE]?.forEach { map[it] = "Defense" }
-      data[HOME_MIDFIELD]?.forEach { map[it] = "Midfield" }
-      data[HOME_FORWARD]?.forEach { map[it] = "Forward" }
+      val mapLayerPosition: MutableMap<String, String> = mutableMapOf()
+      data[HOME_DEFENSE]?.forEach { mapLayerPosition[it] = "Defense" }
+      data[HOME_MIDFIELD]?.forEach { mapLayerPosition[it] = "Midfield" }
+      data[HOME_FORWARD]?.forEach { mapLayerPosition[it] = "Forward" }
 
-      data[AWAY_DEFENSE]?.forEach { map[it] = "Defense" }
-      data[AWAY_MIDFIELD]?.forEach { map[it] = "Midfield" }
-      data[AWAY_FORWARD]?.forEach { map[it] = "Forward" }
-      eventToTimeline(event, map)
+      data[AWAY_DEFENSE]?.forEach { mapLayerPosition[it] = "Defense" }
+      data[AWAY_MIDFIELD]?.forEach { mapLayerPosition[it] = "Midfield" }
+      data[AWAY_FORWARD]?.forEach { mapLayerPosition[it] = "Forward" }
+      eventToTimeline(event, mapLayerPosition)
     }
 
   }
