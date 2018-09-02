@@ -9,7 +9,6 @@ import kotlinx.android.parcel.Parcelize
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.joda.time.DateTime
-import org.joda.time.Days
 import org.joda.time.format.DateTimeFormat
 
 @Parcelize
@@ -178,7 +177,7 @@ data class Event(
     return description
   }
 
-  fun simpleWinnerDestiption():String {
+  fun simpleWinnerDestiption(): String {
     var description = "Draw $intHomeScore:$intAwayScore"
     if (intHomeScore > intAwayScore)
       description = "$strHomeTeam wins!"
@@ -187,26 +186,11 @@ data class Event(
     return description;
   }
 
-  fun loserDescription(): String {
-    if (isNext()) return "Set your alarm!"
-    if (this.intHomeScore > this.intAwayScore)
-      return "${this.strAwayTeam} loses with score ${this.intAwayScore}"
-    if (this.intHomeScore < this.intAwayScore)
-      return "${this.strHomeTeam} loses with score ${this.intHomeScore}"
-    return "The match is draw with score ${this.intHomeScore}:${this.intAwayScore}"
-  }
-
   fun getTime(): String {
     return "${this.strTime?.substring(0, 5)}"
   }
 
   private fun getJodaDate(): DateTime = DateTimeFormat.forPattern("yyyy-MM-dd").parseDateTime(this.dateEvent)
-
-  fun isNext(): Boolean {
-    val eventDate = getJodaDate()
-    val now = DateTime.now()
-    return Days.daysBetween(now, eventDate).days > 0
-  }
 
   fun getFormattedDate(): String = getJodaDate().toString("E, dd MMMM yyyy")
 
@@ -233,7 +217,7 @@ data class Event(
 
   fun winnerBanner(callback: (String) -> Unit) {
     when (winnerTeamId()) {
-      DRAW -> callback("https://boygeniusreport.files.wordpress.com/2017/01/super-bowl-football.jpg?quality=98&strip=all")
+      DRAW -> callback("https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&h=650&w=940")
       else ->
         Lookup.Request.get.byTeam(winnerTeamId())
             .handleSafely()

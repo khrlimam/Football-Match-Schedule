@@ -19,12 +19,12 @@ class TimelinePresenter(val behavior: TimelineBehavior) {
 
   private fun eventToTimeline(event: Event, playerPosition: Map<String, String>) {
     val events = listOf(
-        TeamHolder(Team(AWAY, event), Predicate.RED_CARD, event.strAwayRedCards),
-        TeamHolder(Team(AWAY, event), Predicate.YELLOW_CARD, event.strAwayYellowCards),
-        TeamHolder(Team(AWAY, event), Predicate.GOAL, event.strAwayGoalDetails),
-        TeamHolder(Team(HOME, event), Predicate.RED_CARD, event.strHomeRedCards),
-        TeamHolder(Team(HOME, event), Predicate.YELLOW_CARD, event.strHomeYellowCards),
-        TeamHolder(Team(HOME, event), Predicate.GOAL, event.strHomeGoalDetails))
+        TeamEventHolder(Team(AWAY, event), Predicate.RED_CARD, event.strAwayRedCards),
+        TeamEventHolder(Team(AWAY, event), Predicate.YELLOW_CARD, event.strAwayYellowCards),
+        TeamEventHolder(Team(AWAY, event), Predicate.GOAL, event.strAwayGoalDetails),
+        TeamEventHolder(Team(HOME, event), Predicate.RED_CARD, event.strHomeRedCards),
+        TeamEventHolder(Team(HOME, event), Predicate.YELLOW_CARD, event.strHomeYellowCards),
+        TeamEventHolder(Team(HOME, event), Predicate.GOAL, event.strHomeGoalDetails))
 
     val timeLines: MutableList<TimeLineHolder> = mutableListOf()
     events.forEach { event_ ->
@@ -47,7 +47,7 @@ class TimelinePresenter(val behavior: TimelineBehavior) {
     lineUpPresenter.formatLineUps(event)
   }
 
-  data class TeamHolder(val team: Team, val doSomething: Predicate, val aboutSomething: String?)
+  data class TeamEventHolder(val team: Team, val doSomething: Predicate, val aboutSomething: String?)
 
   enum class Predicate {
     YELLOW_CARD, RED_CARD, GOAL

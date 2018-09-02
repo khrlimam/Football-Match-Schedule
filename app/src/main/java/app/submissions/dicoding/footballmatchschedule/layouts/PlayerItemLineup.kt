@@ -6,16 +6,17 @@ import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import app.submissions.dicoding.footballmatchschedule.R
+import app.submissions.dicoding.footballmatchschedule.layouts.PlayerItemLineup.WhichPlayer.*
 import org.jetbrains.anko.*
 
-class PlayerItemLineup(private val playerName: String, private val which: WHICH_PLAYER) : AnkoComponent<Context> {
+class PlayerItemLineup(private val playerName: String, private val which: WhichPlayer) : AnkoComponent<Context> {
   override fun createView(ui: AnkoContext<Context>): View = with(ui) {
     return verticalLayout {
       lparams(width = dip(0), height = wrapContent, weight = 1f)
       view {
         background = when (which) {
-          WHICH_PLAYER.HOME -> ContextCompat.getDrawable(ctx, R.drawable.home_player_circle)
-          WHICH_PLAYER.AWAY -> ContextCompat.getDrawable(ctx, R.drawable.away_player_circle)
+          HOME -> ContextCompat.getDrawable(ctx, R.drawable.home_player_circle)
+          AWAY -> ContextCompat.getDrawable(ctx, R.drawable.away_player_circle)
         }
       }.lparams(width = dip(30), height = dip(30)) {
         gravity = Gravity.CENTER_HORIZONTAL
@@ -32,7 +33,7 @@ class PlayerItemLineup(private val playerName: String, private val which: WHICH_
   }
 
 
-  enum class WHICH_PLAYER {
+  enum class WhichPlayer {
     HOME, AWAY
   }
 

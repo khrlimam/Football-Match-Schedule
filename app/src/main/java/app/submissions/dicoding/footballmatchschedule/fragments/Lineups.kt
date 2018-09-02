@@ -12,8 +12,8 @@ import app.submissions.dicoding.footballmatchschedule.R
 import app.submissions.dicoding.footballmatchschedule.exts.abbreviatedName
 import app.submissions.dicoding.footballmatchschedule.exts.loadWithGlide
 import app.submissions.dicoding.footballmatchschedule.layouts.PlayerItemLineup
-import app.submissions.dicoding.footballmatchschedule.layouts.PlayerItemLineup.WHICH_PLAYER.AWAY
-import app.submissions.dicoding.footballmatchschedule.layouts.PlayerItemLineup.WHICH_PLAYER.HOME
+import app.submissions.dicoding.footballmatchschedule.layouts.PlayerItemLineup.WhichPlayer.AWAY
+import app.submissions.dicoding.footballmatchschedule.layouts.PlayerItemLineup.WhichPlayer.HOME
 import app.submissions.dicoding.footballmatchschedule.models.Event
 import app.submissions.dicoding.footballmatchschedule.presenters.LineupPresenter
 import app.submissions.dicoding.footballmatchschedule.presenters.LineupPresenter.LINEUPS.*
@@ -67,7 +67,7 @@ class Lineups : Fragment(), LineupBehavior, AnkoLogger {
   }
 
   @SuppressLint("InflateParams")
-  private fun addTeamLineup(lineUpName: LinearLayout, teams: List<String>?, which: PlayerItemLineup.WHICH_PLAYER) {
+  private fun addTeamLineup(lineUpName: LinearLayout, teams: List<String>?, which: PlayerItemLineup.WhichPlayer) {
     teams?.forEach {
       lineUpName.addView(PlayerItemLineup(it.abbreviatedName(), which).createView(AnkoContext.create(ctx)))
     }

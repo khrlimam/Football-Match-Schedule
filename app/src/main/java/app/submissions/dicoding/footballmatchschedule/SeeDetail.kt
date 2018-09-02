@@ -127,8 +127,8 @@ class SeeDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffsetChangedL
         info(ADD_TO_FAVORITE)
         true
       }
-      UNFAVORITE -> {
-        info(UNFAVORITE)
+      UN_FAVORITE -> {
+        info(UN_FAVORITE)
         true
       }
       else -> super.onOptionsItemSelected(item)
@@ -167,8 +167,7 @@ class SeeDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffsetChangedL
 
   companion object {
     const val ADD_TO_FAVORITE: String = "Add to favorite"
-    const val UNFAVORITE: String = "Unfavorite"
-
+    const val UN_FAVORITE: String = "Un favorite"
   }
 
 }
