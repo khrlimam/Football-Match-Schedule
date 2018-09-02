@@ -170,12 +170,21 @@ data class Event(
 ) : Parcelable, AnkoLogger {
 
   fun winnerDescription(): String {
-    if (isNext()) return this.strLeague
-    if (this.intHomeScore > this.intAwayScore)
-      return "Winner: ${this.strHomeTeam} with score ${this.intHomeScore}"
-    if (this.intHomeScore < this.intAwayScore)
-      return "Winner: ${this.strAwayTeam} with score ${this.intAwayScore}"
-    return DRAW
+    var description = "The match is draw with score $intHomeScore:$intAwayScore"
+    if (intHomeScore > intAwayScore)
+      description = "$strHomeTeam wins the match with score $intHomeScore"
+    if (intAwayScore > intHomeScore)
+      description = "$strAwayTeam wins the match with score $intAwayScore"
+    return description
+  }
+
+  fun simpleWinnerDestiption():String {
+    var description = "Draw $intHomeScore:$intAwayScore"
+    if (intHomeScore > intAwayScore)
+      description = "$strHomeTeam wins!"
+    if (intAwayScore > intHomeScore)
+      description = "$strAwayTeam wins!"
+    return description;
   }
 
   fun loserDescription(): String {
@@ -202,12 +211,7 @@ data class Event(
   fun getFormattedDate(): String = getJodaDate().toString("E, dd MMMM yyyy")
 
   fun headline(): CharSequence? {
-    var description = "The match is draw with score $intHomeScore:$intAwayScore"
-    if (intHomeScore > intAwayScore)
-      description = "$strHomeTeam wins the match with score $intHomeScore"
-    if (intAwayScore > intHomeScore)
-      description = "$strAwayTeam wins the match with score $intAwayScore"
-    return "$strEvent: $description"
+    return "$strEvent: ${winnerDescription()}"
   }
 
   fun teamHomeBadge(callback: (String) -> Unit) {

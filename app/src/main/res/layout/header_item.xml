@@ -3,7 +3,10 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="vertical"
-              android:padding="10dp">
+              android:paddingBottom="10dp"
+              android:paddingLeft="10dp"
+              android:paddingRight="10dp"
+              android:paddingTop="20dp">
 
   <TextView
     android:id="@+id/tvDate"
@@ -16,7 +19,7 @@
     android:paddingRight="10dp"
     android:paddingTop="7dp"
     android:text="@string/sample_date"
-    android:textColor="@color/darkwhiteTransparent"
+    android:textColor="@color/darkWhite"
     android:textSize="13sp"
     android:textStyle="bold"/>
 

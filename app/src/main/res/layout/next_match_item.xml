@@ -22,7 +22,7 @@
     android:paddingRight="20dp">
 
     <TextView
-      android:id="@+id/tvVs"
+      android:id="@+id/tvScoreResult"
       android:layout_width="80dp"
       android:layout_height="wrap_content"
       android:layout_marginBottom="8dp"
@@ -69,7 +69,7 @@
       android:layout_marginEnd="8dp"
       android:layout_marginTop="8dp"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toStartOf="@+id/tvVs"
+      app:layout_constraintEnd_toStartOf="@+id/tvScoreResult"
       app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
@@ -80,7 +80,7 @@
       android:layout_marginStart="8dp"
       android:layout_marginTop="8dp"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toEndOf="@+id/tvVs"
+      app:layout_constraintStart_toEndOf="@+id/tvScoreResult"
       app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView

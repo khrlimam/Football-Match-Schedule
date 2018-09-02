@@ -59,7 +59,7 @@ class RecyclerViewAdapterWithItemViewPager(private val data: List<MatchNewsHolde
       itemView.tvTitle.text = singleNews.headline()
       itemView.tvDate.text = singleNews.getFormattedDate()
       itemView.setOnClickListener { onNewsClicked(singleNews) }
-
+      itemView.ivImageView.setOnClickListener { onNewsClicked(singleNews) }
     }
   }
 

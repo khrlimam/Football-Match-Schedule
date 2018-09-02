@@ -61,7 +61,7 @@ class HeaderBodyRecyclerViewAdapter(private val matches: List<DataType>,
       itemView.tvTime.fontGoogleProductBold()
       itemView.tvHome.fontGoogleProductBold()
       itemView.tvAway.fontGoogleProductBold()
-      itemView.tvVs.fontGoogleProductBold()
+      itemView.tvScoreResult.fontGoogleProductBold()
 
       itemView.tvTime.text = body.getTime()
       itemView.tvHome.text = body.strHomeTeam

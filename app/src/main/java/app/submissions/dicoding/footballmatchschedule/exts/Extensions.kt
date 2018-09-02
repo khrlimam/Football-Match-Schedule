@@ -48,3 +48,20 @@ fun ImageView.loadWithGlide(url: String) {
 fun ImageView.startScaleAnimation() {
   startAnimation(AnimationUtils.loadAnimation(context, R.anim.scale))
 }
+
+fun String.abbreviatedName(): String {
+  val nameSplitted = this.split(" ")
+  if (nameSplitted.size > 1)
+    return "${nameSplitted[0][0]}. ${nameSplitted.last()}"
+  return nameSplitted[0]
+}
+
+fun String.splitCommaSeparatedToList(): List<String> {
+  return this.split(";").map { it.trim() }.filter { it.trim().isNotEmpty() }.toList()
+}
+
+fun Map<*, *>.getOrAnother(key: String, default: String): String {
+  if (get(key) == null)
+    return default
+  return get(key).toString()
+}
