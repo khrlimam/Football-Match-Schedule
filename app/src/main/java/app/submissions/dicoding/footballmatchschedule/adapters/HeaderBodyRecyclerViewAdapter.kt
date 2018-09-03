@@ -1,6 +1,5 @@
 package app.submissions.dicoding.footballmatchschedule.adapters
 
-import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,6 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.header_item.view.*
 import kotlinx.android.synthetic.main.next_match_item.view.*
 import org.jetbrains.anko.AnkoLogger
-import java.util.*
 
 class HeaderBodyRecyclerViewAdapter(private val matches: List<DataType>,
                                     private val listener: (Event) -> Unit) :
@@ -70,13 +68,6 @@ class HeaderBodyRecyclerViewAdapter(private val matches: List<DataType>,
       body.teamAwayBadge { Glide.with(itemView.context).load(it).thumbnail(.1f).into(itemView.ivAway) }
 
       itemView.setOnClickListener { listener(data.body) }
-    }
-
-    @SuppressLint("Recycle")
-    private fun randomizeColor(): Int {
-      val colors = itemView.resources.obtainTypedArray(R.array.rygbCircle)
-      val bound: Int = colors.length()
-      return colors.getResourceId(Random().nextInt(bound), 0)
     }
   }
 

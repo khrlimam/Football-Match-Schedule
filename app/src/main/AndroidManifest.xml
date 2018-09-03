@@ -20,7 +20,6 @@
     </activity>
     <activity
       android:name=".SeeDetail"
-      android:label="@string/title_activity_scrolling"
       android:theme="@style/AppTheme">
     </activity>
   </application>

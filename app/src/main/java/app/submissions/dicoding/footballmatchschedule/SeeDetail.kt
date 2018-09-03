@@ -10,23 +10,23 @@ import android.support.v7.graphics.Palette
 import android.view.Menu
 import android.view.MenuItem
 import app.submissions.dicoding.footballmatchschedule.adapters.FragmentPagerAdapter
-import app.submissions.dicoding.footballmatchschedule.exts.fontGoogleProductBold
-import app.submissions.dicoding.footballmatchschedule.exts.fontGoogleProductRegular
-import app.submissions.dicoding.footballmatchschedule.exts.loadWithGlide
-import app.submissions.dicoding.footballmatchschedule.exts.startScaleAnimation
+import app.submissions.dicoding.footballmatchschedule.db.tables.Favorites
+import app.submissions.dicoding.footballmatchschedule.exts.*
 import app.submissions.dicoding.footballmatchschedule.fragments.Lineups
 import app.submissions.dicoding.footballmatchschedule.fragments.Timeline
 import app.submissions.dicoding.footballmatchschedule.models.Event
+import app.submissions.dicoding.footballmatchschedule.models.holders.FavoriteData
+import app.submissions.dicoding.footballmatchschedule.models.holders.ItemType
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import jp.wasabeef.blurry.Blurry
-import kotlinx.android.synthetic.main.seed_detail.*
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.ctx
-import org.jetbrains.anko.info
+import kotlinx.android.synthetic.main.see_detail.*
+import org.jetbrains.anko.*
+import org.jetbrains.anko.db.insert
+import org.jetbrains.anko.design.snackbar
 
 class SeeDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffsetChangedListener {
 
@@ -37,7 +37,7 @@ class SeeDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffsetChangedL
   @SuppressLint("SetTextI18n")
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.seed_detail)
+    setContentView(R.layout.see_detail)
     setSupportActionBar(toolbar)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
     app_bar.addOnOffsetChangedListener(this)
@@ -105,7 +105,6 @@ class SeeDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffsetChangedL
           ?.add(ADD_TO_FAVORITE)
           ?.setIcon(R.drawable.add_favorite_border_color)
           ?.setOnMenuItemClickListener {
-            info(it.title)
             return@setOnMenuItemClickListener (true)
           }
           ?.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
@@ -122,9 +121,24 @@ class SeeDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffsetChangedL
     if (item?.itemId == android.R.id.home)
       onBackPressed()
 
+    info(item?.title)
+    info("favoriting")
     return when (item?.title) {
       ADD_TO_FAVORITE -> {
-        info(ADD_TO_FAVORITE)
+        info("adding to favorite")
+        alert("adding to favorite").show()
+        try {
+          database().use {
+            insert(Favorites.TABLE_NAME,
+                Favorites.DATA to FavoriteData(event, ItemType.NEWS).toJson())
+          }
+          snackbar(tabContainer, "Favorited!").show()
+          alert("added to favorite").show()
+        } catch (e: Exception) {
+          alert(e.localizedMessage) {
+            okButton { }
+          }.show()
+        }
         true
       }
       UN_FAVORITE -> {

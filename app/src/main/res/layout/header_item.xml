@@ -13,7 +13,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:background="@drawable/radius_transparent_black_bg"
+    android:background="@drawable/radius_gradient"
     android:paddingBottom="7dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"

@@ -1,7 +1,6 @@
 package app.submissions.dicoding.footballmatchschedule.fragments
 
 import android.os.Bundle
-import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -22,15 +21,16 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.okButton
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.ctx
-import org.jetbrains.anko.support.v4.intentFor
+import org.jetbrains.anko.support.v4.startActivity
 
 class PreviousMatch : Fragment(), AnkoLogger {
 
   private val presenter: PreviousMatchPresenter = PreviousMatchPresenter(MyBehavior())
   private var dataSchedules: MutableList<MatchNewsHolder> = mutableListOf()
   private val seeDetail: (Event) -> Unit = {
-    startActivity(intentFor<SeeDetail>(BuildConfig.EVENT_DATA to it),
-        activity?.let { it1 -> ActivityOptionsCompat.makeSceneTransitionAnimation(it1).toBundle() })
+    startActivity<SeeDetail>(BuildConfig.EVENT_DATA to it)
+//    startActivity(intentFor<SeeDetail>(BuildConfig.EVENT_DATA to it),
+//        activity?.let { it1 -> ActivityOptionsCompat.makeSceneTransitionAnimation(it1).toBundle() })
   }
   private var adapter = RecyclerViewAdapterWithItemViewPager(dataSchedules, seeDetail)
 

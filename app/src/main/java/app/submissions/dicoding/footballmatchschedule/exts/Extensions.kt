@@ -1,10 +1,12 @@
 package app.submissions.dicoding.footballmatchschedule.exts
 
+import android.content.Context
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import app.submissions.dicoding.footballmatchschedule.R
+import app.submissions.dicoding.footballmatchschedule.db.MyDatabaseOpenHelper
 import app.submissions.dicoding.footballmatchschedule.fabric.FontProducer
 import com.bumptech.glide.Glide
 import io.reactivex.Observable
@@ -65,3 +67,5 @@ fun Map<*, *>.getOrAnother(key: String, default: String): String {
     return default
   return get(key).toString()
 }
+
+fun Context.database(): MyDatabaseOpenHelper = MyDatabaseOpenHelper.getInstance(this)
