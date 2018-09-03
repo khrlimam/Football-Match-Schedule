@@ -49,6 +49,7 @@ class HeaderBodyRecyclerViewAdapter(private val matches: List<DataType>,
       val item: ItemHeaderHolder = data as ItemHeaderHolder
       itemView.tvDate.text = item.header
     }
+
   }
 
   class BodyViewHolder(view: View, val listener: (Event) -> Unit) : BodyHeaderViewHolder(view), AnkoLogger {
@@ -56,18 +57,21 @@ class HeaderBodyRecyclerViewAdapter(private val matches: List<DataType>,
     override fun bind(data: DataType) {
       data as ItemBodyHolder
       val body: Event = data.body
-      itemView.tvTime.fontGoogleProductBold()
-      itemView.tvHome.fontGoogleProductBold()
-      itemView.tvAway.fontGoogleProductBold()
-      itemView.tvScoreResult.fontGoogleProductBold()
+      itemView?.apply {
+        tvTime.fontGoogleProductBold()
+        tvHome.fontGoogleProductBold()
+        tvAway.fontGoogleProductBold()
+        tvScoreResult.fontGoogleProductBold()
 
-      itemView.tvTime.text = body.getTime()
-      itemView.tvHome.text = body.strHomeTeam
-      itemView.tvAway.text = body.strAwayTeam
-      body.teamHomeBadge { Glide.with(itemView.context).load(it).thumbnail(.1f).into(itemView.ivHome) }
-      body.teamAwayBadge { Glide.with(itemView.context).load(it).thumbnail(.1f).into(itemView.ivAway) }
+        tvTime.text = body.getTime()
+        tvHome.text = body.strHomeTeam
+        tvAway.text = body.strAwayTeam
 
-      itemView.setOnClickListener { listener(data.body) }
+        body.teamHomeBadge { Glide.with(context).load(it).thumbnail(.1f).into(ivHome) }
+        body.teamAwayBadge { Glide.with(context).load(it).thumbnail(.1f).into(ivAway) }
+
+        setOnClickListener { listener(data.body) }
+      }
     }
   }
 
