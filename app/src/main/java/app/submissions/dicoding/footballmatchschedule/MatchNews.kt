@@ -8,6 +8,7 @@ import app.submissions.dicoding.footballmatchschedule.adapters.FragmentPagerAdap
 import app.submissions.dicoding.footballmatchschedule.fragments.NextMatch
 import app.submissions.dicoding.footballmatchschedule.fragments.PreviousMatch
 import kotlinx.android.synthetic.main.activity_schedules.*
+import org.jetbrains.anko.startActivity
 
 class MatchNews : AppCompatActivity() {
 
@@ -30,7 +31,10 @@ class MatchNews : AppCompatActivity() {
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
     return when (item?.itemId) {
-      R.id.myFavorites -> true
+      R.id.myFavorites -> {
+        startActivity<Favorites>()
+        true
+      }
       else -> super.onOptionsItemSelected(item)
     }
   }

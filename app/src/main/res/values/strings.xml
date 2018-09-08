@@ -122,6 +122,7 @@
   <string name="add_to_favorite">Add to favorite</string>
   <string name="un_favorite">Unfavorite</string>
   <string name="dummy_name">M. Dubravka</string>
+  <string name="remove_from_favorite">Remove from favorite</string>
 
 
 </resources>

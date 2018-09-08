@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import app.submissions.dicoding.footballmatchschedule.R
 import app.submissions.dicoding.footballmatchschedule.exts.fontGoogleProductBold
+import app.submissions.dicoding.footballmatchschedule.exts.loadWithGlide
 import app.submissions.dicoding.footballmatchschedule.models.Event
 import app.submissions.dicoding.footballmatchschedule.models.holders.DataType
 import app.submissions.dicoding.footballmatchschedule.models.holders.ItemBodyHolder
@@ -67,8 +68,8 @@ class HeaderBodyRecyclerViewAdapter(private val matches: List<DataType>,
         tvHome.text = body.strHomeTeam
         tvAway.text = body.strAwayTeam
 
-        body.teamHomeBadge { Glide.with(context).load(it).thumbnail(.1f).into(ivHome) }
-        body.teamAwayBadge { Glide.with(context).load(it).thumbnail(.1f).into(ivAway) }
+        body.teamHomeBadge { ivHome.loadWithGlide(it) }
+        body.teamAwayBadge { ivAway.loadWithGlide(it) }
 
         setOnClickListener { listener(data.body) }
       }

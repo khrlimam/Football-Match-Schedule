@@ -18,10 +18,9 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
-    <activity
-      android:name=".SeeDetail"
-      android:theme="@style/AppTheme">
-    </activity>
+    <activity android:name=".SeeDetail"/>
+    <activity android:name=".Favorites"/>
+    <activity android:name=".NextMatchDetail"/>
   </application>
 
 </manifest>

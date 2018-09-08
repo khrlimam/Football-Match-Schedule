@@ -15,7 +15,6 @@ android {
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     buildConfigField "String", "BASE_URL", "\"https://www.thesportsdb.com/api/v1/json/1/\""
-    buildConfigField "String", "EVENT_DATA", "\"EVENT_DATA\""
 
     vectorDrawables.useSupportLibrary = true
   }

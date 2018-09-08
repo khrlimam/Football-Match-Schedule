@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import app.submissions.dicoding.footballmatchschedule.BuildConfig
 import app.submissions.dicoding.footballmatchschedule.R
+import app.submissions.dicoding.footballmatchschedule.constants.Constants
 import app.submissions.dicoding.footballmatchschedule.exts.abbreviatedName
 import app.submissions.dicoding.footballmatchschedule.exts.loadWithGlide
 import app.submissions.dicoding.footballmatchschedule.layouts.PlayerItemLineup
@@ -32,7 +33,7 @@ class Lineups : Fragment(), LineupBehavior, AnkoLogger {
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    val event = arguments?.getParcelable<Event>(BuildConfig.EVENT_DATA)
+    val event = arguments?.getParcelable<Event>(Constants.EVENT_DATA)
     event?.teamHomeBadge { ivHome.loadWithGlide(it) }
     event?.teamAwayBadge { ivAway.loadWithGlide(it) }
     tvHome.text = event?.strHomeTeam

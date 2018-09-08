@@ -177,7 +177,7 @@ data class Event(
     return description
   }
 
-  fun simpleWinnerDestiption(): String {
+  fun simpleWinnerDescription(): String {
     var description = "Draw $intHomeScore:$intAwayScore"
     if (intHomeScore > intAwayScore)
       description = "$strHomeTeam wins!"

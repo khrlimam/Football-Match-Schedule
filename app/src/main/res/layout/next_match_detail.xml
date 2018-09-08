@@ -1,38 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<FrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="130dp"
-  android:layout_marginBottom="5dp"
-  android:layout_marginLeft="20dp"
-  android:layout_marginRight="20dp"
-  android:layout_marginTop="20dp"
-  android:elevation="5dp"
-  android:focusable="true"
-  app:cardCornerRadius="5dp"
-  tools:targetApi="lollipop">
+  android:layout_height="match_parent">
 
-  <android.support.constraint.ConstraintLayout
+  <ImageView
+    android:id="@+id/ivBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="20dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp">
+    android:scaleType="centerCrop"/>
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/linear_transparent_black"/>
+
+  <android.support.constraint.ConstraintLayout
+    android:id="@+id/clContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:padding="10dp"
+    app:layout_collapseMode="parallax">
+
+    <TextView
+      android:id="@+id/tvLeague"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="8dp"
+      android:layout_marginStart="8dp"
+      android:text="English Premiere League"
+      android:textColor="@android:color/white"
+      android:textSize="20sp"
+      android:textStyle="bold"
+      app:layout_constraintBottom_toTopOf="@+id/tvTime"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+      android:id="@+id/tvDate"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="32dp"
+      android:layout_marginEnd="8dp"
+      android:layout_marginStart="8dp"
+      android:text="TextView"
+      android:textAlignment="center"
+      android:textColor="@android:color/white"
+      android:textSize="13sp"
+      app:layout_constraintBottom_toTopOf="@+id/tvScoreResult"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      />
 
     <TextView
       android:id="@+id/tvScoreResult"
-      android:layout_width="80dp"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginBottom="8dp"
       android:layout_marginEnd="8dp"
       android:layout_marginStart="8dp"
       android:layout_marginTop="8dp"
+      android:gravity="center_horizontal"
+      android:padding="10dp"
       android:text="VS"
       android:textAlignment="center"
-      android:textColor="@color/primary_text"
-      android:textSize="20sp"
+      android:textColor="@android:color/white"
+      android:textSize="40sp"
       android:textStyle="bold"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
@@ -45,9 +80,8 @@
       android:layout_height="wrap_content"
       android:layout_marginEnd="8dp"
       android:layout_marginStart="8dp"
-      android:background="@drawable/radius_grey_bg"
       android:drawablePadding="5dp"
-      android:drawableStart="@drawable/ic_access_time_black_15dp"
+      android:drawableStart="@drawable/ic_access_time_white_15dp"
       android:gravity="center_vertical"
       android:paddingBottom="5dp"
       android:paddingLeft="10dp"
@@ -55,11 +89,12 @@
       android:paddingTop="5dp"
       android:text="@string/time_sample"
       android:textAlignment="center"
-      android:textColor="@color/primary_text"
+      android:textColor="@android:color/white"
       android:textSize="13sp"
+      app:layout_constraintBottom_toTopOf="@+id/tvDate"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"/>
+      />
 
     <ImageView
       android:id="@+id/ivHome"
@@ -68,6 +103,7 @@
       android:layout_marginBottom="8dp"
       android:layout_marginEnd="8dp"
       android:layout_marginTop="8dp"
+      android:textColor="@android:color/white"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@+id/tvScoreResult"
       app:layout_constraintTop_toTopOf="parent"/>
@@ -76,20 +112,19 @@
       android:id="@+id/ivAway"
       android:layout_width="70dp"
       android:layout_height="70dp"
-      android:layout_marginBottom="8dp"
       android:layout_marginStart="8dp"
-      android:layout_marginTop="8dp"
-      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toEndOf="@+id/tvScoreResult"
-      app:layout_constraintTop_toTopOf="parent"/>
+      app:layout_constraintTop_toTopOf="@+id/ivHome"/>
 
     <TextView
       android:id="@+id/tvHome"
       android:layout_width="150dp"
       android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
       android:text="Manchester United"
       android:textAlignment="center"
-      android:textColor="@color/primary_text"
+      android:textColor="@android:color/white"
+      android:textSize="17sp"
       android:textStyle="bold"
       app:layout_constraintEnd_toEndOf="@+id/ivHome"
       app:layout_constraintStart_toStartOf="@+id/ivHome"
@@ -99,13 +134,25 @@
       android:id="@+id/tvAway"
       android:layout_width="150dp"
       android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
       android:text="Huddersfield Town"
       android:textAlignment="center"
-      android:textColor="@color/primary_text"
+      android:textColor="@android:color/white"
+      android:textSize="17sp"
       android:textStyle="bold"
       app:layout_constraintEnd_toEndOf="@+id/ivAway"
       app:layout_constraintStart_toStartOf="@+id/ivAway"
       app:layout_constraintTop_toBottomOf="@+id/ivAway"/>
 
   </android.support.constraint.ConstraintLayout>
-</android.support.v7.widget.CardView>
+
+  <android.support.v7.widget.Toolbar
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:layout_gravity="top"
+    android:theme="@style/Theme.AppCompat"
+    android:background="@android:color/transparent"
+    app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+</FrameLayout>

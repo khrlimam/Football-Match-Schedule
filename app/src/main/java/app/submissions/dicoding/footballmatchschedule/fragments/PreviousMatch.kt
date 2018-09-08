@@ -10,6 +10,7 @@ import app.submissions.dicoding.footballmatchschedule.BuildConfig
 import app.submissions.dicoding.footballmatchschedule.R
 import app.submissions.dicoding.footballmatchschedule.SeeDetail
 import app.submissions.dicoding.footballmatchschedule.adapters.RecyclerViewAdapterWithItemViewPager
+import app.submissions.dicoding.footballmatchschedule.constants.Constants
 import app.submissions.dicoding.footballmatchschedule.exts.gone
 import app.submissions.dicoding.footballmatchschedule.exts.visible
 import app.submissions.dicoding.footballmatchschedule.models.Event
@@ -28,7 +29,7 @@ class PreviousMatch : Fragment(), AnkoLogger {
   private val presenter: PreviousMatchPresenter = PreviousMatchPresenter(MyBehavior())
   private var dataSchedules: MutableList<MatchNewsHolder> = mutableListOf()
   private val seeDetail: (Event) -> Unit = {
-    startActivity<SeeDetail>(BuildConfig.EVENT_DATA to it)
+    startActivity<SeeDetail>(Constants.EVENT_DATA to it)
 //    startActivity(intentFor<SeeDetail>(BuildConfig.EVENT_DATA to it),
 //        activity?.let { it1 -> ActivityOptionsCompat.makeSceneTransitionAnimation(it1).toBundle() })
   }

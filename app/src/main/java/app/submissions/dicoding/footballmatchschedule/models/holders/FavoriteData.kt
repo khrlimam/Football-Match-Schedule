@@ -1,20 +1,19 @@
 package app.submissions.dicoding.footballmatchschedule.models.holders
 
+import app.submissions.dicoding.footballmatchschedule.fabric.GsonFabric
 import app.submissions.dicoding.footballmatchschedule.models.Event
-import com.google.gson.Gson
 
-class FavoriteData(val event: Event, val itemType: ItemType) {
+class FavoriteData(val event: Event, val itemType: EItemType) {
   fun toJson(): String {
-    return Gson().toJson(this)
-  }
-
-  companion object {
-    fun fromJson(serialized: String): FavoriteData {
-      return Gson().fromJson(serialized, FavoriteData::class.java)
-    }
+    return GsonFabric.build.toJson(this)
   }
 }
 
-enum class ItemType {
-  NEWS, SCHEDULE
+enum class EItemType(val field: Int) {
+  PAST(ItemType.PAST), NEXT(ItemType.NEXT)
+}
+
+object ItemType {
+  const val PAST = 0
+  const val NEXT = 1
 }
