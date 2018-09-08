@@ -47,6 +47,7 @@ class FavoritesAdapter(val favorites: List<Favorites>, val click: (Favorites) ->
         tvTitle.fontGoogleProductBold()
         tvDate.fontGoogleProductRegular()
         setOnClickListener { click(data) }
+        ivImageView.setOnClickListener { click(data) }
       }
     }
   }
