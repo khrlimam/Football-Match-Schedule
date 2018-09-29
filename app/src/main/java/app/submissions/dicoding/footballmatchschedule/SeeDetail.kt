@@ -192,7 +192,6 @@ class SeeDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffsetChangedL
     } catch (e: Exception) {
       snackbar(tabContainer, e.localizedMessage).show()
     }
-
   }
 
   private fun removeFromFavorite() {
