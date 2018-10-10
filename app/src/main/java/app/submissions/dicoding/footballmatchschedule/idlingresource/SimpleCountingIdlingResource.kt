@@ -1,7 +1,6 @@
 package app.submissions.dicoding.footballmatchschedule.idlingresource
 
 import android.support.test.espresso.IdlingResource
-import android.util.Log.i
 import java.util.concurrent.atomic.AtomicInteger
 
 class SimpleCountingIdlingResource(private val resName: String) : IdlingResource {
@@ -24,12 +23,10 @@ class SimpleCountingIdlingResource(private val resName: String) : IdlingResource
   }
 
   fun increment() {
-    i(resName, "start idling")
     counter.getAndIncrement()
   }
 
   fun decrement() {
-    i(resName, "stop idling")
     val counterVal = counter.decrementAndGet()
     if (counterVal == 0) {
       // we've gone from non-zero to zero. That means we're idle now! Tell espresso.

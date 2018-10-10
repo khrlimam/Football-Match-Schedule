@@ -20,13 +20,12 @@ import app.submissions.dicoding.footballmatchschedule.presenters.behavior.Previo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.recycler_view.*
-import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.okButton
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.startActivity
 
-class PreviousMatch : Fragment(), AnkoLogger {
+class PreviousMatch : Fragment() {
 
   private val presenter: PreviousMatchPresenter = PreviousMatchPresenter(MyBehavior(),
       AndroidSchedulers.mainThread(),

@@ -2,9 +2,9 @@ package app.submissions.dicoding.footballmatchschedule
 
 
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.Espresso.pressBack
 import android.support.test.espresso.IdlingRegistry
-import android.support.test.espresso.action.ViewActions.*
+import android.support.test.espresso.action.ViewActions.click
+import android.support.test.espresso.action.ViewActions.swipeLeft
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.contrib.RecyclerViewActions
 import android.support.test.espresso.matcher.ViewMatchers.*
@@ -19,13 +19,15 @@ import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Before
+import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
+import org.junit.runners.MethodSorters
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class MatchNewsTest {
 
   @Rule
@@ -38,7 +40,7 @@ class MatchNewsTest {
   }
 
   @Test
-  fun testPreviousMatchRecyclerView() {
+  fun a1_testPreviousMatchRecyclerView() {
     onView(previousMatchRecyclerView()).perform(
         RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
     onView(withId(R.id.fab))
@@ -46,19 +48,44 @@ class MatchNewsTest {
     onView(withId(R.id.fab)).perform(click())
     onView(withText("Favorited!"))
         .check(matches(isDisplayed()))
-    pressBack()
   }
 
   @Test
-  fun testNextMatchRecyclerView() {
+  fun a2_testNextMatchRecyclerView() {
     onView(withId(R.id.tabContainer))
         .perform(swipeLeft())
-    onView(nextMatchRecyclerView()).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
 
-    onView(withIndex(withId(R.menu.menu_scrolling), 0)).perform(click())
+    onView(nextMatchRecyclerView()).check(matches(isDisplayed()))
+
+    onView(nextMatchRecyclerView()).perform(
+        RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(1, click()))
+
+    onView(withId(R.id.favorite_item)).check(matches(isDisplayed()))
+    onView(withId(R.id.favorite_item)).perform(click())
     onView(withText("Favorited!"))
         .check(matches(isDisplayed()))
-    pressBack()
+  }
+
+  @Test
+  fun a3_testFavoriteRecyclerViewUnFavoritePreviousMatch() {
+    onView(withId(R.id.myFavorites)).check(matches(isDisplayed()))
+    onView(withId(R.id.myFavorites)).perform(click())
+    onView(withId(rvRecyclerView)).check(matches(isDisplayed()))
+    onView(withId(rvRecyclerView)).perform(
+        RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+    onView(withId(R.id.fab)).check(matches(isDisplayed()))
+    onView(withId(R.id.fab)).perform(click())
+  }
+
+  @Test
+  fun a4_testFavoriteRecyclerViewUnFavoriteNextMatch() {
+    onView(withId(R.id.myFavorites)).check(matches(isDisplayed()))
+    onView(withId(R.id.myFavorites)).perform(click())
+    onView(withId(rvRecyclerView)).check(matches(isDisplayed()))
+    onView(withId(rvRecyclerView)).perform(
+        RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+    onView(withId(R.id.favorite_item)).check(matches(isDisplayed()))
+    onView(withId(R.id.favorite_item)).perform(click())
   }
 
   private fun previousMatchRecyclerView(): Matcher<View> {
