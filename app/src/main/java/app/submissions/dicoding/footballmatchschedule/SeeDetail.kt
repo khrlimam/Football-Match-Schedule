@@ -14,7 +14,10 @@ import android.view.MenuItem
 import app.submissions.dicoding.footballmatchschedule.adapters.FragmentPagerAdapter
 import app.submissions.dicoding.footballmatchschedule.constants.Constants
 import app.submissions.dicoding.footballmatchschedule.db.tables.Favorites
-import app.submissions.dicoding.footballmatchschedule.exts.*
+import app.submissions.dicoding.footballmatchschedule.exts.database
+import app.submissions.dicoding.footballmatchschedule.exts.fontGoogleProductBold
+import app.submissions.dicoding.footballmatchschedule.exts.fontGoogleProductRegular
+import app.submissions.dicoding.footballmatchschedule.exts.loadWithGlide
 import app.submissions.dicoding.footballmatchschedule.fragments.Lineups
 import app.submissions.dicoding.footballmatchschedule.fragments.Timeline
 import app.submissions.dicoding.footballmatchschedule.models.Event
@@ -28,12 +31,10 @@ import com.bumptech.glide.request.target.Target
 import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.see_detail.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.alert
 import org.jetbrains.anko.ctx
 import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.design.snackbar
-import org.jetbrains.anko.okButton
 
 class SeeDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffsetChangedListener {
 
@@ -59,7 +60,6 @@ class SeeDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffsetChangedL
       isFavorite = true
       id = favoriteEvent.id.toString()
       event = favoriteEvent.dataToObject().event
-      toggleFabFavoriteIcon()
     }
 
     showData()
@@ -112,8 +112,6 @@ class SeeDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffsetChangedL
 
       tvScoreResult.text = "$intHomeScore : $intAwayScore"
       tvScoreResult.fontGoogleProductBold()
-
-      ivImgHeader.startScaleAnimation()
     }
   }
 
@@ -122,61 +120,36 @@ class SeeDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffsetChangedL
       removeFromFavorite()
     else
       addToFavorite()
-    toggleFabFavoriteIcon()
-  }
-
-  private fun toggleFabFavoriteIcon() {
-    if (isFavorite)
-      fab.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.un_favorite_border_color))
-    else
-      fab.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.add_favorite_border_color))
-  }
-
-
-  override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-    if (!isAppBarExpanded && collapsedMenu?.size() != 1)
-      collapsedMenu?.apply {
-        if (!isFavorite)
-          this.add(ADD_TO_FAVORITE)
-              ?.setIcon(R.drawable.add_favorite_border_color)
-              ?.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
-        else
-          this.add(UN_FAVORITE)
-              ?.setIcon(R.drawable.un_favorite_border_color)
-              ?.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
-      }
-    return super.onPrepareOptionsMenu(menu)
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-    menuInflater.inflate(R.menu.menu_scrolling, menu)
+    menuInflater.inflate(R.menu.favorite_menu, menu)
     collapsedMenu = menu
+    toggleFavoriteIcon()
     return super.onCreateOptionsMenu(menu)
   }
 
-  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-    if (item?.itemId == android.R.id.home)
-      onBackPressed()
-
-    return when (item?.title) {
-      ADD_TO_FAVORITE -> {
-        try {
-          addToFavorite()
-          toggleFabFavoriteIcon()
-        } catch (e: Exception) {
-          alert(e.localizedMessage) {
-            okButton { }
-          }.show()
-        }
-        true
-      }
-      UN_FAVORITE -> {
-        removeFromFavorite()
-        toggleFabFavoriteIcon()
-        true
-      }
-      else -> super.onOptionsItemSelected(item)
+  private fun toggleFavoriteIcon() {
+    if (isFavorite) {
+      fab.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.un_favorite_border_color))
+      collapsedMenu?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.un_favorite_border_color)
+    } else {
+      fab.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.add_favorite_border_color))
+      collapsedMenu?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.add_favorite_border_color)
     }
+  }
+
+  override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+    collapsedMenu?.getItem(0)?.isVisible = !isAppBarExpanded
+    return super.onPrepareOptionsMenu(menu)
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    when (item?.itemId) {
+      R.id.favorite_item -> toggleFavorite()
+      android.R.id.home -> onBackPressed()
+    }
+    return super.onOptionsItemSelected(item)
   }
 
   private fun addToFavorite() {
@@ -244,11 +217,6 @@ class SeeDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffsetChangedL
       return false
     }
 
-  }
-
-  companion object {
-    const val ADD_TO_FAVORITE: String = "Add to favorite"
-    const val UN_FAVORITE: String = "Un favorite"
   }
 
 }
