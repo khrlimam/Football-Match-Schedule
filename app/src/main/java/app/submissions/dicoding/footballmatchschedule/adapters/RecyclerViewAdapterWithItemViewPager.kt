@@ -65,12 +65,8 @@ class RecyclerViewAdapterWithItemViewPager(private val data: List<MatchNewsHolde
 
   class ViewPagerHolder(view: View, private val onPagerItemClick: (Event) -> Unit) : NewsViewBinder(view), AnkoLogger {
 
-    private val pg: ObjectAnimator = AnimatorInflater.loadAnimator(view.context, R.animator.bg_progress) as ObjectAnimator
-
     @SuppressLint("SetTextI18n")
     override fun bind(data: MatchNewsHolder) {
-      pg.target = itemView.progressBar
-      pg.start()
       itemView.tvFooter.fontGoogleProductBold()
       itemView.tvFooter.text = data.date
       itemView.viewPager.adapter = ViewPagerAdapter(data.news) {

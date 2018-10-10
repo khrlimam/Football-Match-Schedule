@@ -4,12 +4,12 @@ import app.submissions.dicoding.footballmatchschedule.constants.League
 import app.submissions.dicoding.footballmatchschedule.models.Events
 import app.submissions.dicoding.footballmatchschedule.presenters.behavior.PreviousMatchBehavior
 import app.submissions.dicoding.footballmatchschedule.requests.to.LeagueSchedule
-import com.nhaarman.mockito_kotlin.verify
 import io.reactivex.observers.TestObserver
 import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
+import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
 class PreviousMatchPresenterTest {

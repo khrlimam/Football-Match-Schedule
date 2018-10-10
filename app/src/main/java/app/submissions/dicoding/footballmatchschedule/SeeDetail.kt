@@ -112,8 +112,6 @@ class SeeDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffsetChangedL
 
       tvScoreResult.text = "$intHomeScore : $intAwayScore"
       tvScoreResult.fontGoogleProductBold()
-
-      ivImgHeader.startScaleAnimation()
     }
   }
 

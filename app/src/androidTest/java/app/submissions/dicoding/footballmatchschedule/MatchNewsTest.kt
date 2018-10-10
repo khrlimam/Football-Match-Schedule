@@ -2,10 +2,12 @@ package app.submissions.dicoding.footballmatchschedule
 
 
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.Espresso.pressBack
 import android.support.test.espresso.IdlingRegistry
-import android.support.test.espresso.action.ViewActions.click
+import android.support.test.espresso.action.ViewActions.*
+import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.contrib.RecyclerViewActions
-import android.support.test.espresso.matcher.ViewMatchers.withId
+import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.filters.LargeTest
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
@@ -39,6 +41,23 @@ class MatchNewsTest {
   fun testPreviousMatchRecyclerView() {
     onView(previousMatchRecyclerView()).perform(
         RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+    onView(withId(R.id.fab))
+        .check(matches(isDisplayed()))
+    onView(withId(R.id.fab)).perform(click())
+    onView(withText("Favorited!"))
+        .check(matches(isDisplayed()))
+    pressBack()
+  }
+
+  @Test
+  fun testNextMatchRecyclerView() {
+    onView(withId(R.id.tabContainer))
+        .perform(swipeLeft())
+    onView(nextMatchRecyclerView()).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+    onView(withIndex(withId(R.menu.menu_scrolling), 0)).perform(click())
+    onView(withText("Favorited!"))
+        .check(matches(isDisplayed()))
+    pressBack()
   }
 
   private fun previousMatchRecyclerView(): Matcher<View> {

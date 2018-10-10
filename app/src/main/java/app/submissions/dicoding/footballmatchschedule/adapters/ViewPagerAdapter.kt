@@ -40,7 +40,6 @@ class ViewPagerAdapter(private val items: List<Event>, private val handleOnClick
       tvTagLine.fontGoogleProductRegular()
       tvTagLine.text = item.headline()
       item.winnerBanner { imageView.loadWithGlide(it) }
-      imageView.startScaleAnimation()
       view.setOnClickListener { handleOnClick(item) }
     }
   }

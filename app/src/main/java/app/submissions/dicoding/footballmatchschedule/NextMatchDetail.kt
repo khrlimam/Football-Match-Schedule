@@ -70,7 +70,6 @@ class NextMatchDetail : AppCompatActivity() {
             .load(it)
             .listener(OnImageLoaded())
             .into(ivBackground)
-        ivBackground.startScaleAnimation()
       }
       teamAwayBadge { ivAway.loadWithGlide(it) }
       teamHomeBadge { ivHome.loadWithGlide(it) }
