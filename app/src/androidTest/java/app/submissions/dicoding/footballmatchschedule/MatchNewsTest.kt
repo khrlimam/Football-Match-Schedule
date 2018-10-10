@@ -54,6 +54,7 @@ class MatchNewsTest {
     onView(withId(R.id.tabContainer))
         .perform(swipeLeft())
     onView(nextMatchRecyclerView()).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+
     onView(withIndex(withId(R.menu.menu_scrolling), 0)).perform(click())
     onView(withText("Favorited!"))
         .check(matches(isDisplayed()))

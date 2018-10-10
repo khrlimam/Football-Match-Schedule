@@ -4,12 +4,16 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import app.submissions.dicoding.footballmatchschedule.constants.Constants
 import app.submissions.dicoding.footballmatchschedule.db.tables.Favorites
-import app.submissions.dicoding.footballmatchschedule.exts.*
+import app.submissions.dicoding.footballmatchschedule.exts.database
+import app.submissions.dicoding.footballmatchschedule.exts.fontGoogleProductBold
+import app.submissions.dicoding.footballmatchschedule.exts.fontGoogleProductRegular
+import app.submissions.dicoding.footballmatchschedule.exts.loadWithGlide
 import app.submissions.dicoding.footballmatchschedule.models.Event
 import app.submissions.dicoding.footballmatchschedule.models.holders.EItemType
 import app.submissions.dicoding.footballmatchschedule.models.holders.FavoriteData
@@ -31,8 +35,6 @@ class NextMatchDetail : AppCompatActivity() {
 
   var event: Event? = null
 
-  private var collapsedMenu: Menu? = null
-  private var isAppBarExpanded: Boolean = false
   private var isFavorite: Boolean = false
   private lateinit var id: String
   private var processedFavoriteId: Long = -1L
@@ -51,9 +53,20 @@ class NextMatchDetail : AppCompatActivity() {
       id = favoriteEvent.id.toString()
       event = favoriteEvent.dataToObject().event
       isFavorite = true
-      invalidateOptionsMenu()
     }
     viewContent()
+  }
+
+  override fun invalidateOptionsMenu() {
+    toggleIcon()
+    super.invalidateOptionsMenu()
+  }
+
+  private fun toggleIcon() {
+    if (isFavorite)
+      menu?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.un_favorite_border_color)
+    else
+      menu?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.add_favorite_border_color)
   }
 
   private fun viewContent() {
@@ -112,54 +125,27 @@ class NextMatchDetail : AppCompatActivity() {
   }
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-    if (item?.itemId == android.R.id.home)
-      onBackPressed()
+    when (item?.itemId) {
+      R.id.favorite_item -> toggleFavorite()
+      android.R.id.home -> onBackPressed()
+    }
+    return super.onOptionsItemSelected(item)
+  }
 
-    return when (item?.title) {
-      SeeDetail.ADD_TO_FAVORITE -> {
-        try {
-          addToFavorite()
-          invalidateOptionsMenu()
-        } catch (e: Exception) {
-          alert(e.localizedMessage) {
-            okButton { }
-          }.show()
-        }
-        true
-      }
-      SeeDetail.UN_FAVORITE -> {
-        try {
-          removeFromFavorite()
-        } catch (e: Exception) {
-          alert(e.localizedMessage) {
-            okButton { }
-          }.show()
-        }
-        invalidateOptionsMenu()
-        true
-      }
-      else -> super.onOptionsItemSelected(item)
+  private fun toggleFavorite() {
+    try {
+      if (isFavorite) removeFromFavorite() else addToFavorite()
+    } catch (e: java.lang.Exception) {
+      alert(e.localizedMessage).okButton { }
     }
   }
 
-  override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-    if (!isAppBarExpanded && collapsedMenu?.size() != 1)
-      collapsedMenu?.apply {
-        if (!isFavorite)
-          this.add(SeeDetail.ADD_TO_FAVORITE)
-              ?.setIcon(R.drawable.add_favorite_border_color)
-              ?.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
-        else
-          this.add(SeeDetail.UN_FAVORITE)
-              ?.setIcon(R.drawable.un_favorite_border_color)
-              ?.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
-      }
-    return super.onPrepareOptionsMenu(menu)
-  }
+  private var menu: Menu? = null
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-    menuInflater.inflate(R.menu.menu_scrolling, menu)
-    collapsedMenu = menu
+    menuInflater.inflate(R.menu.favorite_menu, menu)
+    this.menu = menu
+    invalidateOptionsMenu()
     return super.onCreateOptionsMenu(menu)
   }
 
