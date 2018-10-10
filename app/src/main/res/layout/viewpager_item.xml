@@ -11,6 +11,7 @@
   app:cardCornerRadius="5dp">
 
   <android.support.constraint.ConstraintLayout
+    android:id="@+id/clContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="bottom">

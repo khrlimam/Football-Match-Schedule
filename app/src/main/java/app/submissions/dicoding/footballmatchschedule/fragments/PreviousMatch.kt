@@ -6,17 +6,19 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import app.submissions.dicoding.footballmatchschedule.BuildConfig
 import app.submissions.dicoding.footballmatchschedule.R
 import app.submissions.dicoding.footballmatchschedule.SeeDetail
 import app.submissions.dicoding.footballmatchschedule.adapters.RecyclerViewAdapterWithItemViewPager
 import app.submissions.dicoding.footballmatchschedule.constants.Constants
 import app.submissions.dicoding.footballmatchschedule.exts.gone
 import app.submissions.dicoding.footballmatchschedule.exts.visible
+import app.submissions.dicoding.footballmatchschedule.idlingresource.EspressoIdlingResource
 import app.submissions.dicoding.footballmatchschedule.models.Event
 import app.submissions.dicoding.footballmatchschedule.models.holders.MatchNewsHolder
 import app.submissions.dicoding.footballmatchschedule.presenters.PreviousMatchPresenter
 import app.submissions.dicoding.footballmatchschedule.presenters.behavior.PreviousMatchBehavior
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.recycler_view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.okButton
@@ -26,12 +28,12 @@ import org.jetbrains.anko.support.v4.startActivity
 
 class PreviousMatch : Fragment(), AnkoLogger {
 
-  private val presenter: PreviousMatchPresenter = PreviousMatchPresenter(MyBehavior())
+  private val presenter: PreviousMatchPresenter = PreviousMatchPresenter(MyBehavior(),
+      AndroidSchedulers.mainThread(),
+      Schedulers.newThread())
   private var dataSchedules: MutableList<MatchNewsHolder> = mutableListOf()
   private val seeDetail: (Event) -> Unit = {
     startActivity<SeeDetail>(Constants.EVENT_DATA to it)
-//    startActivity(intentFor<SeeDetail>(BuildConfig.EVENT_DATA to it),
-//        activity?.let { it1 -> ActivityOptionsCompat.makeSceneTransitionAnimation(it1).toBundle() })
   }
   private var adapter = RecyclerViewAdapterWithItemViewPager(dataSchedules, seeDetail)
 
@@ -61,6 +63,7 @@ class PreviousMatch : Fragment(), AnkoLogger {
       dataSchedules.clear()
       dataSchedules.addAll(items)
       adapter.notifyDataSetChanged()
+      EspressoIdlingResource.dec()
     }
 
     override fun showLoading() {

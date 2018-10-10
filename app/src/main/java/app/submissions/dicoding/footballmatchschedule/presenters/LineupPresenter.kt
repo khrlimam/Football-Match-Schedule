@@ -9,16 +9,17 @@ class LineupPresenter(private val behavior: LineupBehavior) {
 
   fun formatLineUps(event: Event) {
     val data = mutableMapOf<LINEUPS, List<String>?>()
-    data[HOME_DEFENSE] = event.strHomeLineupDefense?.splitCommaSeparatedToList()
-    data[HOME_MIDFIELD] = event.strHomeLineupMidfield?.splitCommaSeparatedToList()
-    data[HOME_FORWARD] = event.strHomeLineupForward?.splitCommaSeparatedToList()
-    data[HOME_KEEPER] = event.strHomeLineupGoalkeeper?.splitCommaSeparatedToList()
+    data.apply {
+      set(HOME_DEFENSE, event.strHomeLineupDefense?.splitCommaSeparatedToList())
+      set(HOME_MIDFIELD, event.strHomeLineupMidfield?.splitCommaSeparatedToList())
+      set(HOME_FORWARD, event.strHomeLineupForward?.splitCommaSeparatedToList())
+      set(HOME_KEEPER, event.strHomeLineupGoalkeeper?.splitCommaSeparatedToList())
 
-
-    data[AWAY_DEFENSE] = event.strAwayLineupDefense?.splitCommaSeparatedToList()
-    data[AWAY_MIDFIELD] = event.strAwayLineupMidfield?.splitCommaSeparatedToList()
-    data[AWAY_FORWARD] = event.strAwayLineupForward?.splitCommaSeparatedToList()
-    data[AWAY_KEEPER] = event.strAwayLineupGoalkeeper?.splitCommaSeparatedToList()
+      set(AWAY_DEFENSE, event.strAwayLineupDefense?.splitCommaSeparatedToList())
+      set(AWAY_MIDFIELD, event.strAwayLineupMidfield?.splitCommaSeparatedToList())
+      set(AWAY_FORWARD, event.strAwayLineupForward?.splitCommaSeparatedToList())
+      set(AWAY_KEEPER, event.strAwayLineupGoalkeeper?.splitCommaSeparatedToList())
+    }
     behavior.onLineUpFormatted(data)
   }
 

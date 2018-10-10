@@ -1,8 +1,11 @@
 package app.submissions.dicoding.footballmatchschedule
 
+import android.view.View
+import org.hamcrest.Description
+import org.hamcrest.Matcher
+import org.hamcrest.TypeSafeMatcher
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -15,3 +18,4 @@ class ExampleUnitTest {
     assertEquals(4, 2 + 2)
   }
 }
+

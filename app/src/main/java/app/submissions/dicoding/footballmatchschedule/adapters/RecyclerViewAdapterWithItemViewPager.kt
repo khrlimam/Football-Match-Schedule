@@ -88,7 +88,7 @@ class RecyclerViewAdapterWithItemViewPager(private val data: List<MatchNewsHolde
               ++itemView.viewPager.currentItem
             else
               itemView.viewPager.currentItem = 0
-          }
+          }.isDisposed
     }
 
     companion object {

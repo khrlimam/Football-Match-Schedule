@@ -7,6 +7,7 @@ import android.view.MenuItem
 import app.submissions.dicoding.footballmatchschedule.adapters.FragmentPagerAdapter
 import app.submissions.dicoding.footballmatchschedule.fragments.NextMatch
 import app.submissions.dicoding.footballmatchschedule.fragments.PreviousMatch
+import app.submissions.dicoding.footballmatchschedule.idlingresource.EspressoIdlingResource
 import kotlinx.android.synthetic.main.activity_schedules.*
 import org.jetbrains.anko.startActivity
 
@@ -16,6 +17,7 @@ class MatchNews : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_schedules)
     setSupportActionBar(toolbar)
+    EspressoIdlingResource.inc()
     val adapter = FragmentPagerAdapter(supportFragmentManager, listOf(
         FragmentPagerAdapter.FragmentData("Past", PreviousMatch()),
         FragmentPagerAdapter.FragmentData("Coming", NextMatch())

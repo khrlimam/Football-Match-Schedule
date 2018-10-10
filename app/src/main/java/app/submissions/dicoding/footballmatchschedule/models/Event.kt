@@ -1,5 +1,6 @@
 package app.submissions.dicoding.footballmatchschedule.models
 
+import android.annotation.SuppressLint
 import android.os.Parcelable
 import app.submissions.dicoding.footballmatchschedule.exts.handleSafely
 import app.submissions.dicoding.footballmatchschedule.requests.to.Lookup
@@ -206,6 +207,7 @@ data class Event(
     getBadge(idAwayTeam, callback)
   }
 
+  @SuppressLint("CheckResult")
   private fun getBadge(teamId: String, callback: (String) -> Unit) {
     Lookup.Request.get.byTeam(teamId)
         .handleSafely()

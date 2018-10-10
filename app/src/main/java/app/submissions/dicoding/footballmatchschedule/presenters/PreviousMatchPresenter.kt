@@ -1,14 +1,17 @@
 package app.submissions.dicoding.footballmatchschedule.presenters
 
 import app.submissions.dicoding.footballmatchschedule.constants.League
-import app.submissions.dicoding.footballmatchschedule.exts.handleSafely
-import app.submissions.dicoding.footballmatchschedule.models.Events
+import app.submissions.dicoding.footballmatchschedule.idlingresource.EspressoIdlingResource
+import app.submissions.dicoding.footballmatchschedule.models.Event
 import app.submissions.dicoding.footballmatchschedule.models.holders.MatchNewsHolder
 import app.submissions.dicoding.footballmatchschedule.presenters.behavior.PreviousMatchBehavior
 import app.submissions.dicoding.footballmatchschedule.requests.to.LeagueSchedule
+import io.reactivex.Scheduler
 import io.reactivex.disposables.Disposable
 
-class PreviousMatchPresenter(private val behavior: PreviousMatchBehavior) {
+class PreviousMatchPresenter(private val behavior: PreviousMatchBehavior,
+                             private val mainScheduler: Scheduler,
+                             private val backgroundScheduler: Scheduler) {
   private var disposable: Disposable? = null
 
   fun dispose() {
@@ -17,18 +20,22 @@ class PreviousMatchPresenter(private val behavior: PreviousMatchBehavior) {
 
   fun getData() {
     behavior.showLoading()
-    LeagueSchedule.Request.get.past15(League.ENGLISH)
-        .handleSafely()
+    disposable = LeagueSchedule.Request.get.past15(League.ENGLISH)
+        .subscribeOn(backgroundScheduler)
+        .observeOn(mainScheduler)
         .subscribe(
-            { response ->
-              response as Events
-              val data = response.events
-                  .groupBy { it.dateEvent }
-                  .map { MatchNewsHolder(it.value[0].getFormattedDate(), it.value) }
-              behavior.showData(data)
-            },
+            { behavior.showData(mapEventsToMatchNewsHolder(it.events)) },
             { behavior.onError("An error occured!\n${it.message}") },
             { behavior.hideLoading() })
+  }
+
+  companion object {
+    fun mapEventsToMatchNewsHolder(data: List<Event>): List<MatchNewsHolder> =
+        data
+            .asSequence()
+            .groupBy { it.dateEvent }
+            .map { MatchNewsHolder(it.value[0].getFormattedDate(), it.value) }
+            .toList()
   }
 
 }

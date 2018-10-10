@@ -77,3 +77,4 @@ fun Context.database(): MyDatabaseOpenHelper = MyDatabaseOpenHelper.getInstance(
 fun toSimpleString(date: Date?): String? = with(date ?: Date()) {
   return SimpleDateFormat("EEE, dd MMM yyy").format(this)
 }
+
