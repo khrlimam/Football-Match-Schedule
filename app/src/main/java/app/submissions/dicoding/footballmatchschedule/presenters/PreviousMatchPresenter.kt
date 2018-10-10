@@ -17,7 +17,7 @@ class PreviousMatchPresenter(private val behavior: PreviousMatchBehavior) {
 
   fun getData() {
     behavior.showLoading()
-    LeagueSchedule.Request.get.past15(League.ENGLISH)
+    disposable = LeagueSchedule.Request.get.past15(League.ENGLISH)
         .handleSafely()
         .subscribe(
             { response ->
