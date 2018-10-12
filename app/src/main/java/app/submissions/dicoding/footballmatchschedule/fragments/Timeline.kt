@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import app.submissions.dicoding.footballmatchschedule.BuildConfig
 import app.submissions.dicoding.footballmatchschedule.R
 import app.submissions.dicoding.footballmatchschedule.adapters.TimelineAdapter
 import app.submissions.dicoding.footballmatchschedule.constants.Constants
@@ -17,7 +16,6 @@ import app.submissions.dicoding.footballmatchschedule.presenters.TimelinePresent
 import app.submissions.dicoding.footballmatchschedule.presenters.behavior.TimelineBehavior
 import kotlinx.android.synthetic.main.recycler_view.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 import org.jetbrains.anko.support.v4.ctx
 
 class Timeline : Fragment(), TimelineBehavior, AnkoLogger {

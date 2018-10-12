@@ -12,7 +12,6 @@ import app.submissions.dicoding.footballmatchschedule.models.holders.TimeLineHol
 import app.submissions.dicoding.footballmatchschedule.presenters.TimelinePresenter
 import kotlinx.android.synthetic.main.timeline_holder.view.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 class TimelineAdapter(private val data: List<TimeLineHolder>) : RecyclerView.Adapter<TimelineAdapter.Holder>() {
 

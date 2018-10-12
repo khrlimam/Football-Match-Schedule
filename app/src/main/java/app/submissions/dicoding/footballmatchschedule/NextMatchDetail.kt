@@ -10,10 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import app.submissions.dicoding.footballmatchschedule.constants.Constants
 import app.submissions.dicoding.footballmatchschedule.db.tables.Favorites
-import app.submissions.dicoding.footballmatchschedule.exts.database
-import app.submissions.dicoding.footballmatchschedule.exts.fontGoogleProductBold
-import app.submissions.dicoding.footballmatchschedule.exts.fontGoogleProductRegular
-import app.submissions.dicoding.footballmatchschedule.exts.loadWithGlide
+import app.submissions.dicoding.footballmatchschedule.exts.*
 import app.submissions.dicoding.footballmatchschedule.models.Event
 import app.submissions.dicoding.footballmatchschedule.models.holders.EItemType
 import app.submissions.dicoding.footballmatchschedule.models.holders.FavoriteData
@@ -164,6 +161,7 @@ class NextMatchDetail : AppCompatActivity() {
     override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
       resource?.let { bitmap ->
         Blurry.with(ctx).async().from(bitmap).into(ivBackground)
+        ivBackground.startScaleAnimation()
       }
       return false
     }

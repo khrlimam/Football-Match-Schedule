@@ -11,7 +11,6 @@ import app.submissions.dicoding.footballmatchschedule.models.Event
 import app.submissions.dicoding.footballmatchschedule.models.holders.DataType
 import app.submissions.dicoding.footballmatchschedule.models.holders.ItemBodyHolder
 import app.submissions.dicoding.footballmatchschedule.models.holders.ItemHeaderHolder
-import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.header_item.view.*
 import kotlinx.android.synthetic.main.next_match_item.view.*
 import org.jetbrains.anko.AnkoLogger

@@ -6,7 +6,8 @@ import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import app.submissions.dicoding.footballmatchschedule.R
-import app.submissions.dicoding.footballmatchschedule.layouts.PlayerItemLineup.WhichPlayer.*
+import app.submissions.dicoding.footballmatchschedule.layouts.PlayerItemLineup.WhichPlayer.AWAY
+import app.submissions.dicoding.footballmatchschedule.layouts.PlayerItemLineup.WhichPlayer.HOME
 import org.jetbrains.anko.*
 
 class PlayerItemLineup(private val playerName: String, private val which: WhichPlayer) : AnkoComponent<Context> {

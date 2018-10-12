@@ -14,10 +14,7 @@ import android.view.MenuItem
 import app.submissions.dicoding.footballmatchschedule.adapters.FragmentPagerAdapter
 import app.submissions.dicoding.footballmatchschedule.constants.Constants
 import app.submissions.dicoding.footballmatchschedule.db.tables.Favorites
-import app.submissions.dicoding.footballmatchschedule.exts.database
-import app.submissions.dicoding.footballmatchschedule.exts.fontGoogleProductBold
-import app.submissions.dicoding.footballmatchschedule.exts.fontGoogleProductRegular
-import app.submissions.dicoding.footballmatchschedule.exts.loadWithGlide
+import app.submissions.dicoding.footballmatchschedule.exts.*
 import app.submissions.dicoding.footballmatchschedule.fragments.Lineups
 import app.submissions.dicoding.footballmatchschedule.fragments.Timeline
 import app.submissions.dicoding.footballmatchschedule.models.Event
@@ -92,6 +89,8 @@ class SeeDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffsetChangedL
             .listener(OnImageLoaded())
             .into(ivImgHeader)
       }
+
+      ivImgHeader.startScaleAnimation()
 
       tvAway.text = strAwayTeam
       tvAway.fontGoogleProductRegular()
