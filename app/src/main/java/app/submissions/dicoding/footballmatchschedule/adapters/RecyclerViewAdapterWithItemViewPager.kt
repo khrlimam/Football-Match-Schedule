@@ -3,6 +3,7 @@ package app.submissions.dicoding.footballmatchschedule.adapters
 import android.animation.AnimatorInflater
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.os.Handler
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -70,6 +71,7 @@ class RecyclerViewAdapterWithItemViewPager(private val data: List<MatchNewsHolde
     @SuppressLint("SetTextI18n")
     override fun bind(data: MatchNewsHolder) {
       pg.target = itemView.progressBar
+      //init start animation
       pg.start()
       itemView.tvFooter.fontGoogleProductBold()
       itemView.tvFooter.text = data.date
@@ -81,14 +83,21 @@ class RecyclerViewAdapterWithItemViewPager(private val data: List<MatchNewsHolde
       itemView.viewPager.onPageChangeListener {
         onPageSelected { itemView.textView3.text = "${it + 1} of ${data.news.size}" }
       }
-      Observable.interval(INTERVAL_DURATION, TimeUnit.MILLISECONDS)
-          .handleSafely()
-          .subscribe {
-            if (itemView.viewPager.currentItem < data.news.size - 1)
-              ++itemView.viewPager.currentItem
-            else
-              itemView.viewPager.currentItem = 0
-          }.isDisposed
+
+      val autoHandler = Handler()
+      val runnable = object : Runnable {
+        override fun run() {
+          pg.start()
+          if (itemView.viewPager.currentItem < data.news.size - 1) {
+            ++itemView.viewPager.currentItem
+            autoHandler.postDelayed(this, INTERVAL_DURATION)
+          } else {
+            itemView.viewPager.currentItem = 0
+            autoHandler.postDelayed(this, INTERVAL_DURATION)
+          }
+        }
+      }
+      autoHandler.postDelayed(runnable, INTERVAL_DURATION)
     }
 
     companion object {
