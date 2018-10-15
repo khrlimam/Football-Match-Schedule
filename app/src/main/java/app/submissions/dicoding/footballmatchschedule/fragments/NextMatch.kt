@@ -16,6 +16,7 @@ import app.submissions.dicoding.footballmatchschedule.models.Event
 import app.submissions.dicoding.footballmatchschedule.models.holders.DataType
 import app.submissions.dicoding.footballmatchschedule.presenters.NextSchedulePresenter
 import app.submissions.dicoding.footballmatchschedule.presenters.behavior.NextScheduleBehavior
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.recycler_view.*
 import org.jetbrains.anko.okButton
 import org.jetbrains.anko.support.v4.alert
@@ -24,6 +25,7 @@ import org.jetbrains.anko.support.v4.startActivity
 
 class NextMatch : Fragment(), (Event) -> Unit {
 
+  var leagueSubject: PublishSubject<Any>? = null
   private val presenter: NextSchedulePresenter = NextSchedulePresenter(MyBehavior())
   private val dataItems: MutableList<DataType> = mutableListOf()
   private val adapter: HeaderBodyRecyclerViewAdapter = HeaderBodyRecyclerViewAdapter(dataItems, this)

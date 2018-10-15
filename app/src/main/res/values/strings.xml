@@ -20,6 +20,19 @@
     <item>@color/flatColorLightBlue</item>
   </string-array>
 
+  <string-array name="spinner_examples">
+    <item>English Premiere League</item>
+    <item>English Premiere League</item>
+    <item>English Premiere League</item>
+    <item>English Premiere League</item>
+    <item>English Premiere League</item>
+    <item>English Premiere League</item>
+    <item>English Premiere League</item>
+    <item>English Premiere League</item>
+    <item>English Premiere League</item>
+    <item>English Premiere League</item>
+  </string-array>
+
   <string name="title_activity_schedules">Schedules</string>
   <string name="favorites">Favorites</string>
   <string name="oneof">1 of 5</string>

@@ -3,6 +3,7 @@ package app.submissions.dicoding.footballmatchschedule.fragments
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import app.submissions.dicoding.footballmatchschedule.models.Event
 import app.submissions.dicoding.footballmatchschedule.models.holders.MatchNewsHolder
 import app.submissions.dicoding.footballmatchschedule.presenters.PreviousMatchPresenter
 import app.submissions.dicoding.footballmatchschedule.presenters.behavior.PreviousMatchBehavior
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.recycler_view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.okButton
@@ -25,6 +27,7 @@ import org.jetbrains.anko.support.v4.startActivity
 
 class PreviousMatch : Fragment(), AnkoLogger {
 
+  var leagueSubject: PublishSubject<Any>? = null
   private val presenter: PreviousMatchPresenter = PreviousMatchPresenter(MyBehavior())
   private var dataSchedules: MutableList<MatchNewsHolder> = mutableListOf()
   private val seeDetail: (Event) -> Unit = {
@@ -39,6 +42,9 @@ class PreviousMatch : Fragment(), AnkoLogger {
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    leagueSubject?.subscribe {
+      Log.i("got event", "$it")
+    }?.isDisposed
     presenter.getData()
     rvRecyclerView.adapter = adapter
     rvRecyclerView.layoutManager = LinearLayoutManager(ctx)
@@ -77,7 +83,6 @@ class PreviousMatch : Fragment(), AnkoLogger {
         okButton { }
       }
     }
-
   }
 
 }

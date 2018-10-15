@@ -3,7 +3,6 @@ package app.submissions.dicoding.footballmatchschedule.adapters
 import android.animation.AnimatorInflater
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
-import android.os.Handler
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -18,6 +17,7 @@ import app.submissions.dicoding.footballmatchschedule.exts.loadWithGlide
 import app.submissions.dicoding.footballmatchschedule.models.Event
 import app.submissions.dicoding.footballmatchschedule.models.holders.MatchNewsHolder
 import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.single_news_item.view.*
 import kotlinx.android.synthetic.main.viewpager_item.view.*
 import org.jetbrains.anko.AnkoLogger
@@ -68,10 +68,14 @@ class RecyclerViewAdapterWithItemViewPager(private val data: List<MatchNewsHolde
 
     private val pg: ObjectAnimator = AnimatorInflater.loadAnimator(view.context, R.animator.bg_progress) as ObjectAnimator
 
+    var pageChangerObservable: Disposable? = null
+
     @SuppressLint("SetTextI18n")
     override fun bind(data: MatchNewsHolder) {
+      //if the observable is recycled, unsubsribe it
+      pageChangerObservable?.dispose()
       pg.target = itemView.progressBar
-      //init start animation
+      //start first animation when item instantiated
       pg.start()
       itemView.tvFooter.fontGoogleProductBold()
       itemView.tvFooter.text = data.date
@@ -84,20 +88,16 @@ class RecyclerViewAdapterWithItemViewPager(private val data: List<MatchNewsHolde
         onPageSelected { itemView.textView3.text = "${it + 1} of ${data.news.size}" }
       }
 
-      val autoHandler = Handler()
-      val runnable = object : Runnable {
-        override fun run() {
-          pg.start()
-          if (itemView.viewPager.currentItem < data.news.size - 1) {
-            ++itemView.viewPager.currentItem
-            autoHandler.postDelayed(this, INTERVAL_DURATION)
-          } else {
-            itemView.viewPager.currentItem = 0
-            autoHandler.postDelayed(this, INTERVAL_DURATION)
+      pageChangerObservable = Observable.interval(INTERVAL_DURATION, TimeUnit.MILLISECONDS)
+          .handleSafely()
+          .subscribe {
+            //restart the animation when new event arrived
+            pg.start()
+            if (itemView.viewPager.currentItem < data.news.size - 1)
+              ++itemView.viewPager.currentItem
+            else
+              itemView.viewPager.currentItem = 0
           }
-        }
-      }
-      autoHandler.postDelayed(runnable, INTERVAL_DURATION)
     }
 
     companion object {
