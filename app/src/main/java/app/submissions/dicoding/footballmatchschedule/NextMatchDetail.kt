@@ -83,8 +83,8 @@ class NextMatchDetail : AppCompatActivity() {
       }
       teamAwayBadge { ivAway.loadWithGlide(it) }
       teamHomeBadge { ivHome.loadWithGlide(it) }
-      tvTime.text = getTime()
-      tvDate.text = getFormattedDate()
+      tvTime.text = localTime()
+      tvDate.text = localDateWithDayName()
       tvLeague.text = strLeague
       tvHome.text = strHomeTeam
       tvAway.text = strAwayTeam

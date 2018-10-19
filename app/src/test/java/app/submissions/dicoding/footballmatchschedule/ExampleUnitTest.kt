@@ -12,6 +12,7 @@ import org.junit.Assert.*
 class ExampleUnitTest {
   @Test
   fun addition_isCorrect() {
+    val time = "2018-10-17 14:00:00+00:00"
     assertEquals(4, 2 + 2)
   }
 }

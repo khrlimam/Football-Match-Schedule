@@ -3,6 +3,7 @@ package app.submissions.dicoding.footballmatchschedule.fragments
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import app.submissions.dicoding.footballmatchschedule.NextMatchDetail
 import app.submissions.dicoding.footballmatchschedule.R
 import app.submissions.dicoding.footballmatchschedule.adapters.HeaderBodyRecyclerViewAdapter
 import app.submissions.dicoding.footballmatchschedule.constants.Constants
+import app.submissions.dicoding.footballmatchschedule.constants.League
 import app.submissions.dicoding.footballmatchschedule.exts.gone
 import app.submissions.dicoding.footballmatchschedule.exts.visible
 import app.submissions.dicoding.footballmatchschedule.models.Event
@@ -30,14 +32,27 @@ class NextMatch : Fragment(), (Event) -> Unit {
   private val dataItems: MutableList<DataType> = mutableListOf()
   private val adapter: HeaderBodyRecyclerViewAdapter = HeaderBodyRecyclerViewAdapter(dataItems, this)
 
+  private var myView: View? = null
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.recycler_view, container, false)
+    if (myView == null)
+      myView = inflater.inflate(R.layout.next_fragment, container, false)
+    return myView
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    presenter.getData()
+    subscribeForSelectedLeague()
+    presenter.getData(League.ENGLISH)
     rvRecyclerView.adapter = adapter
     rvRecyclerView.layoutManager = LinearLayoutManager(ctx)
+  }
+
+  private fun subscribeForSelectedLeague() {
+    leagueSubject?.subscribe {
+      Log.i(javaClass.name, it.toString())
+      presenter.dispose()
+      presenter.getData(it.toString())
+    }?.isDisposed
   }
 
   override fun invoke(p1: Event) {
@@ -63,13 +78,14 @@ class NextMatch : Fragment(), (Event) -> Unit {
     }
 
     override fun showLoading() {
-      shimmer.startShimmer()
-      shimmer.visible()
+      shimmer?.startShimmer()
+      shimmer?.visible()
     }
 
     override fun hideLoading() {
-      shimmer.stopShimmer()
-      shimmer.gone()
+      shimmer?.stopShimmer()
+      shimmer?.gone()
+      adapter.notifyDataSetChanged()
     }
 
     override fun onError(msg: String) {

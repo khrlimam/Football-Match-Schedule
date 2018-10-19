@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/main_content"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:fitsSystemWindows="true"
-  tools:context=".MatchNews">
+  android:fitsSystemWindows="true">
 
   <android.support.design.widget.AppBarLayout
     android:id="@+id/appbar"
@@ -22,18 +19,17 @@
       android:layout_weight="1"
       android:background="?attr/colorPrimary"
       android:textAlignment="center"
-      android:theme="@style/Theme.AppCompat.Light"
       app:layout_scrollFlags="scroll|enterAlways"
       app:popupTheme="@style/AppTheme.PopupOverlay"
       app:title="@string/favorites"
-      app:titleTextColor="@color/primary_text"/>
+      app:titleTextColor="@color/primary_text" />
   </android.support.design.widget.AppBarLayout>
 
   <include
     layout="@layout/recycler_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
 </android.support.design.widget.CoordinatorLayout>

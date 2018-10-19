@@ -3,24 +3,23 @@ package app.submissions.dicoding.footballmatchschedule
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.view.MenuItem
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import app.submissions.dicoding.footballmatchschedule.adapters.FavoritesAdapter
 import app.submissions.dicoding.footballmatchschedule.constants.Constants
 import app.submissions.dicoding.footballmatchschedule.db.tables.Favorites
 import app.submissions.dicoding.footballmatchschedule.exts.database
 import app.submissions.dicoding.footballmatchschedule.exts.gone
 import app.submissions.dicoding.footballmatchschedule.models.holders.ItemType
-import kotlinx.android.synthetic.main.favorites.*
 import kotlinx.android.synthetic.main.recycler_view.*
-import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.select
-import org.jetbrains.anko.info
-import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.support.v4.intentFor
 
-class Favorites : AppCompatActivity(), AnkoLogger {
+class Favorites : Fragment() {
 
   private var favorites = mutableListOf<Favorites>()
 
@@ -31,16 +30,16 @@ class Favorites : AppCompatActivity(), AnkoLogger {
     }
   }
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.favorites)
-    setSupportActionBar(toolbar)
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    return inflater.inflate(R.layout.favorites, container, false)
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     rvRecyclerView.adapter = adapter
-    rvRecyclerView.layoutManager = LinearLayoutManager(this)
+    rvRecyclerView.layoutManager = LinearLayoutManager(context)
     shimmer.stopShimmer()
     shimmer.gone()
-    database().use {
+    database()?.use {
       val elements = select(Favorites.TABLE_NAME).parseList(classParser<Favorites>())
       favorites.clear()
       favorites.addAll(elements)
@@ -49,10 +48,7 @@ class Favorites : AppCompatActivity(), AnkoLogger {
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    if (resultCode != Activity.RESULT_OK) {
-      info("result is not ok")
-      return
-    }
+    if (resultCode != Activity.RESULT_OK) return
     if (requestCode == FAVORITE_DETAIL) {
       val favoriteId = data?.getLongExtra(FAVORITE_ID, -1)
       val returnedObject = favorites.withIndex().firstOrNull { it.value.id == favoriteId }
@@ -63,11 +59,6 @@ class Favorites : AppCompatActivity(), AnkoLogger {
     }
   }
 
-  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-    if (item?.itemId == android.R.id.home)
-      onBackPressed()
-    return super.onOptionsItemSelected(item)
-  }
 
   companion object {
     const val FAVORITE_DETAIL = 0

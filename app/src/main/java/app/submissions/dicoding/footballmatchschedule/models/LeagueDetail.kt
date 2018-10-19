@@ -126,4 +126,4 @@ data class LeagueDetail(
     @Expose
     var strLocked: String? = null)
 
-data class LeagueDeatails(private val leagueDeatails: List<LeagueDetail>)
+data class LeagueDetails(val leagues: List<LeagueDetail>?)

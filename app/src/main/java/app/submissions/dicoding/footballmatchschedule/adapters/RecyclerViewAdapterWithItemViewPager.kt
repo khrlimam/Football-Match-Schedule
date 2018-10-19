@@ -58,7 +58,7 @@ class RecyclerViewAdapterWithItemViewPager(private val data: List<MatchNewsHolde
       itemView.tvTitle.fontGoogleProductBold()
       itemView.tvDate.fontGoogleProductRegular()
       itemView.tvTitle.text = singleNews.headline()
-      itemView.tvDate.text = singleNews.getFormattedDate()
+      itemView.tvDate.text = singleNews.localDateWithDayName()
       itemView.setOnClickListener { onNewsClicked(singleNews) }
       itemView.ivImageView.setOnClickListener { onNewsClicked(singleNews) }
     }

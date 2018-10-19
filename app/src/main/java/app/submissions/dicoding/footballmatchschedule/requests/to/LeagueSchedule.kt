@@ -10,10 +10,10 @@ import retrofit2.http.Query
 interface LeagueSchedule {
 
   @GET("eventsnextleague.php")
-  fun next15(@Query("id") id: Int): Observable<Events>
+  fun next15(@Query("id") id: String): Observable<Events>
 
   @GET("eventspastleague.php")
-  fun past15(@Query("id") id: Int): Observable<Events>
+  fun past15(@Query("id") id: String): Observable<Events>
 
   @GET("all_leagues.php")
   fun leagues(): Observable<Leagues>

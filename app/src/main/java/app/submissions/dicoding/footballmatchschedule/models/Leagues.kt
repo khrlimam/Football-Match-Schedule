@@ -1,5 +1,8 @@
 package app.submissions.dicoding.footballmatchschedule.models
 
+import android.util.Log
+import app.submissions.dicoding.footballmatchschedule.exts.handleSafely
+import app.submissions.dicoding.footballmatchschedule.requests.to.Lookup
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -16,9 +19,24 @@ data class League(
     @SerializedName("strLeagueAlternate")
     @Expose
     val strLeagueAlternate: String) {
+
+  var badge: String? = null
+
   override fun toString(): String {
     return strLeague
   }
+
+  fun getBadge(idLeague: String, badgeGot: (String?) -> Unit) {
+    Lookup.Request.get.byLeague(idLeague)
+        .handleSafely()
+        .subscribe { response ->
+          response as LeagueDetails
+          val league = response.leagues?.get(0)
+          Log.i("leaguebadge", "${league?.strBadge} -")
+          badgeGot(league?.strBadge)
+        }.isDisposed
+  }
+
 }
 
 data class Leagues(val leagues: List<League>)

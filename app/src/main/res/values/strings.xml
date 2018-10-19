@@ -22,20 +22,11 @@
 
   <string-array name="spinner_examples">
     <item>English Premiere League</item>
-    <item>English Premiere League</item>
-    <item>English Premiere League</item>
-    <item>English Premiere League</item>
-    <item>English Premiere League</item>
-    <item>English Premiere League</item>
-    <item>English Premiere League</item>
-    <item>English Premiere League</item>
-    <item>English Premiere League</item>
-    <item>English Premiere League</item>
   </string-array>
 
   <string name="title_activity_schedules">Schedules</string>
   <string name="favorites">Favorites</string>
-  <string name="oneof">1 of 5</string>
+  <string name="oneof">1 of 500</string>
   <string name="subtitle">on Wednessday, 9 July 2018</string>
   <string name="example_long_text">Manchester United wins the match against Liverpool with score 5!</string>
   <string name="schedules">Schedules</string>
@@ -136,6 +127,12 @@
   <string name="un_favorite">Unfavorite</string>
   <string name="dummy_name">M. Dubravka</string>
   <string name="remove_from_favorite">Remove from favorite</string>
+  <string name="score_example">2</string>
+  <string name="shots_example">/1</string>
+  <string name="title_activity_home">Home</string>
+  <string name="matches">Matches</string>
+  <string name="teams">Teams</string>
+  <string name="search">Search</string>
 
 
 </resources>

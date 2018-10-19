@@ -1,6 +1,5 @@
 package app.submissions.dicoding.footballmatchschedule.presenters
 
-import app.submissions.dicoding.footballmatchschedule.constants.League
 import app.submissions.dicoding.footballmatchschedule.exts.handleSafely
 import app.submissions.dicoding.footballmatchschedule.models.Events
 import app.submissions.dicoding.footballmatchschedule.models.holders.MatchNewsHolder
@@ -15,16 +14,16 @@ class PreviousMatchPresenter(private val behavior: PreviousMatchBehavior) {
     disposable?.dispose()
   }
 
-  fun getData() {
+  fun getData(leagueId: String) {
     behavior.showLoading()
-    disposable = LeagueSchedule.Request.get.past15(League.ENGLISH)
+    disposable = LeagueSchedule.Request.get.past15(leagueId)
         .handleSafely()
         .subscribe(
             { response ->
               response as Events
               val data = response.events
                   .groupBy { it.dateEvent }
-                  .map { MatchNewsHolder(it.value[0].getFormattedDate(), it.value) }
+                  .map { MatchNewsHolder(it.value[0].localDateWithDayName(), it.value) }
               behavior.showData(data)
             },
             { behavior.onError("An error occured!\n${it.message}") },

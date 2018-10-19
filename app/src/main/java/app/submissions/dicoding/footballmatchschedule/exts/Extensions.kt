@@ -2,6 +2,7 @@ package app.submissions.dicoding.footballmatchschedule.exts
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.support.v4.app.Fragment
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
@@ -73,7 +74,18 @@ fun Map<*, *>.getOrAnother(key: String, default: String): String {
 
 fun Context.database(): MyDatabaseOpenHelper = MyDatabaseOpenHelper.getInstance(this)
 
+fun Fragment.database(): MyDatabaseOpenHelper? = context?.let { MyDatabaseOpenHelper.getInstance(it) }
+
 @SuppressLint("SimpleDateFormat")
-fun toSimpleString(date: Date?): String? = with(date ?: Date()) {
-  return SimpleDateFormat("EEE, dd MMM yyy").format(this)
+fun Date.toLocalDateWithDayName(): String = SimpleDateFormat("EEE, dd MMM yyy").format(this)
+
+@SuppressLint("SimpleDateFormat")
+fun Date.toLocalTime(): String = SimpleDateFormat("HH:mm").format(this)
+
+@SuppressLint("SimpleDateFormat")
+fun String.toDate(): Date {
+  val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ssZZ")
+  // set timezone to gmt+8
+  formatter.timeZone = TimeZone.getTimeZone("Asia/Makassar")
+  return formatter.parse(this)
 }

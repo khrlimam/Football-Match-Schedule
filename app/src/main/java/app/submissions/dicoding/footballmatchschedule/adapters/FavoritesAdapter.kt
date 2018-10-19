@@ -41,7 +41,7 @@ class FavoritesAdapter(val favorites: List<Favorites>, val click: (Favorites) ->
         data.dataToObject().event.apply {
           winnerBanner { ivImageView.loadWithGlide(it) }
           tvTitle.text = headline()
-          tvDate.text = getFormattedDate()
+          tvDate.text = localDateWithDayName()
         }
 
         tvTitle.fontGoogleProductBold()
@@ -58,7 +58,7 @@ class FavoritesAdapter(val favorites: List<Favorites>, val click: (Favorites) ->
         data.dataToObject().event.apply {
           teamHomeBadge { ivHome.loadWithGlide(it) }
           teamAwayBadge { ivAway.loadWithGlide(it) }
-          tvTime.text = getTime()
+          tvTime.text = localTime()
           tvHome.text = strHomeTeam
           tvAway.text = strAwayTeam
         }

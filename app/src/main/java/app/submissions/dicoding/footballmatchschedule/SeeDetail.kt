@@ -14,7 +14,10 @@ import android.view.MenuItem
 import app.submissions.dicoding.footballmatchschedule.adapters.FragmentPagerAdapter
 import app.submissions.dicoding.footballmatchschedule.constants.Constants
 import app.submissions.dicoding.footballmatchschedule.db.tables.Favorites
-import app.submissions.dicoding.footballmatchschedule.exts.*
+import app.submissions.dicoding.footballmatchschedule.exts.database
+import app.submissions.dicoding.footballmatchschedule.exts.fontGoogleProductRegular
+import app.submissions.dicoding.footballmatchschedule.exts.loadWithGlide
+import app.submissions.dicoding.footballmatchschedule.exts.startScaleAnimation
 import app.submissions.dicoding.footballmatchschedule.fragments.Lineups
 import app.submissions.dicoding.footballmatchschedule.fragments.Timeline
 import app.submissions.dicoding.footballmatchschedule.models.Event
@@ -100,17 +103,20 @@ class SeeDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffsetChangedL
       tvHome.fontGoogleProductRegular()
       teamHomeBadge { ivHome.loadWithGlide(it) }
 
-      tvTime.text = getTime()
+      tvTime.text = localTime()
       tvTime.fontGoogleProductRegular()
 
-      tvDate.text = getFormattedDate()
+      tvDate.text = localDateWithDayName()
       tvDate.fontGoogleProductRegular()
 
       tvLeague.text = strLeague
       tvLeague.fontGoogleProductRegular()
 
-      tvScoreResult.text = "$intHomeScore : $intAwayScore"
-      tvScoreResult.fontGoogleProductBold()
+      tvScoreHome.text = intHomeScore.toString()
+      tvShotsHome.text = "/${intHomeShots ?: 0}"
+
+      tvScoreAway.text = intAwayScore.toString()
+      tvShotsAway.text = "/${intAwayShots ?: 0}"
     }
   }
 

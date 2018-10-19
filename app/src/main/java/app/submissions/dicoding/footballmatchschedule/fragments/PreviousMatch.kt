@@ -3,7 +3,6 @@ package app.submissions.dicoding.footballmatchschedule.fragments
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +19,7 @@ import app.submissions.dicoding.footballmatchschedule.presenters.behavior.Previo
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.recycler_view.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import org.jetbrains.anko.okButton
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.ctx
@@ -32,22 +32,31 @@ class PreviousMatch : Fragment(), AnkoLogger {
   private var dataSchedules: MutableList<MatchNewsHolder> = mutableListOf()
   private val seeDetail: (Event) -> Unit = {
     startActivity<SeeDetail>(Constants.EVENT_DATA to it)
-//    startActivity(intentFor<SeeDetail>(BuildConfig.EVENT_DATA to it),
-//        activity?.let { it1 -> ActivityOptionsCompat.makeSceneTransitionAnimation(it1).toBundle() })
   }
   private var adapter = RecyclerViewAdapterWithItemViewPager(dataSchedules, seeDetail)
 
+
+  private var myView: View? = null
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.recycler_view, container, false)
+    if (myView == null)
+      myView = inflater.inflate(R.layout.previous_fragment, container, false)
+    myView = myView
+    return myView
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    leagueSubject?.subscribe {
-      Log.i("got event", "$it")
-    }?.isDisposed
-    presenter.getData()
+    subscribeForSelectedLeague()
     rvRecyclerView.adapter = adapter
     rvRecyclerView.layoutManager = LinearLayoutManager(ctx)
+  }
+
+  private fun subscribeForSelectedLeague() {
+    leagueSubject?.subscribe {
+      info(it.toString())
+      presenter.dispose()
+      presenter.getData(it.toString())
+    }?.isDisposed
   }
 
   override fun onPause() {
@@ -69,13 +78,13 @@ class PreviousMatch : Fragment(), AnkoLogger {
     }
 
     override fun showLoading() {
-      shimmer.startShimmer()
-      shimmer.visible()
+      shimmer?.startShimmer()
+      shimmer?.visible()
     }
 
     override fun hideLoading() {
-      shimmer.stopShimmer()
-      shimmer.gone()
+      shimmer?.stopShimmer()
+      shimmer?.gone()
     }
 
     override fun onError(msg: String) {

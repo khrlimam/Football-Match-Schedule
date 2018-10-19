@@ -63,12 +63,11 @@ class HeaderBodyRecyclerViewAdapter(private val matches: List<DataType>,
         tvAway.fontGoogleProductBold()
         tvScoreResult.fontGoogleProductBold()
 
-        tvTime.text = body.getTime()
+        tvTime.text = body.localTime()
         tvHome.text = body.strHomeTeam
         tvAway.text = body.strAwayTeam
-
-        body.teamHomeBadge { ivHome.loadWithGlide(it) }
-        body.teamAwayBadge { ivAway.loadWithGlide(it) }
+        ivHome.loadWithGlide(body.homeBadge ?: "")
+        ivAway.loadWithGlide(body.awayBadge ?: "")
 
         setOnClickListener { listener(data.body) }
       }

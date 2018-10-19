@@ -6,5 +6,7 @@
   android:layout_height="wrap_content"
   android:ellipsize="marquee"
   android:padding="8dp"
+  android:text="@string/example"
+  android:textStyle="bold"
   android:singleLine="true"
   android:textAlignment="center" />

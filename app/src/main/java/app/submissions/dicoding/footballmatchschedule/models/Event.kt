@@ -1,15 +1,17 @@
 package app.submissions.dicoding.footballmatchschedule.models
 
+import android.annotation.SuppressLint
 import android.os.Parcelable
 import app.submissions.dicoding.footballmatchschedule.exts.handleSafely
+import app.submissions.dicoding.footballmatchschedule.exts.toDate
+import app.submissions.dicoding.footballmatchschedule.exts.toLocalDateWithDayName
+import app.submissions.dicoding.footballmatchschedule.exts.toLocalTime
 import app.submissions.dicoding.footballmatchschedule.requests.to.Lookup
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
 
 @Parcelize
 data class Event(
@@ -168,6 +170,9 @@ data class Event(
     var strLocked: String? = null
 ) : Parcelable, AnkoLogger {
 
+  var awayBadge: String? = null
+  var homeBadge: String? = null
+
   fun winnerDescription(): String {
     var description = "The match is draw with score $intHomeScore:$intAwayScore"
     if (intHomeScore > intAwayScore)
@@ -183,16 +188,15 @@ data class Event(
       description = "$strHomeTeam wins!"
     if (intAwayScore > intHomeScore)
       description = "$strAwayTeam wins!"
-    return description;
+    return description
   }
 
-  fun getTime(): String {
-    return "${this.strTime?.substring(0, 5)}"
-  }
+  private fun strDateTime() = "$dateEvent $strTime"
 
-  private fun getJodaDate(): DateTime = DateTimeFormat.forPattern("yyyy-MM-dd").parseDateTime(this.dateEvent)
+  @SuppressLint("SimpleDateFormat")
+  fun localTime(): String = strDateTime().toDate().toLocalTime()
 
-  fun getFormattedDate(): String = getJodaDate().toString("E, dd MMMM yyyy")
+  fun localDateWithDayName(): String = strDateTime().toDate().toLocalDateWithDayName()
 
   fun headline(): CharSequence? {
     return "$strEvent: ${winnerDescription()}"
@@ -212,7 +216,7 @@ data class Event(
         .subscribe({
           it as Teams
           callback(it.teams[0].teamBadge)
-        }, { info(it.message) })
+        }, { info(it.message) }).isDisposed
   }
 
   fun winnerBanner(callback: (String) -> Unit) {
