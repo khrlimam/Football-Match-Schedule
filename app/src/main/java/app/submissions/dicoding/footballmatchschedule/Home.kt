@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import app.submissions.dicoding.footballmatchschedule.fragments.SearchFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
 class Home : AppCompatActivity() {
@@ -20,6 +21,7 @@ class Home : AppCompatActivity() {
           return@OnNavigationItemSelectedListener true
         }
         R.id.navigation_search -> {
+          changeFrameContent(SearchFragment(), bundle)
           return@OnNavigationItemSelectedListener true
         }
       }
