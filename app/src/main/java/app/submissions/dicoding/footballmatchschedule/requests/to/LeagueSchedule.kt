@@ -27,7 +27,3 @@ interface LeagueSchedule {
     val get by lazy { LeagueSchedule.get }
   }
 }
-
-//https://www.thesportsdb.com/api/v1/json/1/lookupplayer.php?id=34145937
-//https://www.thesportsdb.com/api/v1/json/1/lookupteam.php?id=133712
-//https://www.thesportsdb.com/api/v1/json/1/searchevents.php?e=Barcelona

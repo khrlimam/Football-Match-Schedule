@@ -2,23 +2,18 @@ package app.submissions.dicoding.footballmatchschedule
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import app.submissions.dicoding.footballmatchschedule.adapters.GlideCustomImageHandler
 import app.submissions.dicoding.footballmatchschedule.constants.Constants
 import app.submissions.dicoding.footballmatchschedule.db.tables.Favorites
 import app.submissions.dicoding.footballmatchschedule.exts.*
+import app.submissions.dicoding.footballmatchschedule.fabric.GsonFabric
 import app.submissions.dicoding.footballmatchschedule.models.Event
-import app.submissions.dicoding.footballmatchschedule.models.holders.EItemType
-import app.submissions.dicoding.footballmatchschedule.models.holders.FavoriteData
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.next_match_detail.*
 import org.jetbrains.anko.alert
@@ -48,7 +43,7 @@ class NextMatchDetail : AppCompatActivity() {
     val favoriteEvent = intent.getParcelableExtra<Favorites>(Constants.FAVORITE_DATA)
     if (favoriteEvent != null) {
       id = favoriteEvent.id.toString()
-      event = favoriteEvent.dataToObject().event
+      event = GsonFabric.build.fromJson<Event>(favoriteEvent.data, Class.forName(favoriteEvent.className))
       isFavorite = true
     }
     viewContent()
@@ -78,7 +73,10 @@ class NextMatchDetail : AppCompatActivity() {
         Glide.with(ctx)
             .asBitmap()
             .load(it)
-            .listener(OnImageLoaded())
+            .listener(GlideCustomImageHandler { bitmap ->
+              Blurry.with(ctx).async().from(bitmap).into(ivBackground)
+              ivBackground.startScaleAnimation()
+            })
             .into(ivBackground)
       }
       teamAwayBadge { ivAway.loadWithGlide(it) }
@@ -95,7 +93,10 @@ class NextMatchDetail : AppCompatActivity() {
     try {
       database().use {
         val returnedId = insert(Favorites.TABLE_NAME,
-            Favorites.DATA to event?.let { FavoriteData(it, EItemType.NEXT).toJson() })
+            Favorites.DATA to event?.toJson(),
+            Favorites.TYPE to Favorites.ItemType.PAST,
+            Favorites.CLASS_NAME to Event::class.java.name)
+
         id = returnedId.toString()
       }
       isFavorite = true
@@ -151,20 +152,5 @@ class NextMatchDetail : AppCompatActivity() {
     intent.putExtra(app.submissions.dicoding.footballmatchschedule.Favorites.FAVORITE_ID, processedFavoriteId)
     setResult(Activity.RESULT_OK, intent)
     finish()
-  }
-
-  inner class OnImageLoaded : RequestListener<Bitmap> {
-    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
-      return false
-    }
-
-    override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-      resource?.let { bitmap ->
-        Blurry.with(ctx).async().from(bitmap).into(ivBackground)
-        ivBackground.startScaleAnimation()
-      }
-      return false
-    }
-
   }
 }

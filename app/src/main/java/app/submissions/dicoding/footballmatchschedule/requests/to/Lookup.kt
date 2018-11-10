@@ -1,7 +1,7 @@
 package app.submissions.dicoding.footballmatchschedule.requests.to
 
 import app.submissions.dicoding.footballmatchschedule.models.LeagueDetails
-import app.submissions.dicoding.footballmatchschedule.models.TeamDetails
+import app.submissions.dicoding.footballmatchschedule.models.Players
 import app.submissions.dicoding.footballmatchschedule.models.Teams
 import app.submissions.dicoding.footballmatchschedule.requests.Retrofit
 import io.reactivex.Observable
@@ -16,7 +16,10 @@ interface Lookup {
   fun byLeague(@Query("id") id: String): Observable<LeagueDetails>
 
   @GET("lookup_all_teams.php")
-  fun teamsByLeagueId(@Query("id") id: String): Observable<TeamDetails>
+  fun teamsByLeagueId(@Query("id") id: String): Observable<Teams>
+
+  @GET("lookup_all_players.php")
+  fun playersByTeamId(@Query("id") id: String): Observable<Players>
 
   companion object {
     private val get: Lookup =
@@ -28,3 +31,6 @@ interface Lookup {
   }
 
 }
+
+//https://www.thesportsdb.com/api/v1/json/1/lookupplayer.php?id=34145937
+//https://www.thesportsdb.com/api/v1/json/1/lookupteam.php?id=133712

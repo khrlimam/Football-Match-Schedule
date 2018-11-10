@@ -36,7 +36,7 @@ class NextMatch : Fragment(), (Event) -> Unit {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     if (myView == null)
-      myView = inflater.inflate(R.layout.next_fragment, container, false)
+      myView = inflater.inflate(R.layout.recycler_view, container, false)
     return myView
   }
 

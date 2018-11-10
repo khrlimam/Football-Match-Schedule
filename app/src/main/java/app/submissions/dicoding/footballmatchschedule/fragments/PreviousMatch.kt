@@ -33,17 +33,11 @@ class PreviousMatch : Fragment(), AnkoLogger {
   private val seeDetail: (Event) -> Unit = {
     startActivity<SeeDetail>(Constants.EVENT_DATA to it)
   }
+
   private var adapter = RecyclerViewAdapterWithItemViewPager(dataSchedules, seeDetail)
 
-
-  private var myView: View? = null
-
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-    if (myView == null)
-      myView = inflater.inflate(R.layout.previous_fragment, container, false)
-    myView = myView
-    return myView
-  }
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+      inflater.inflate(R.layout.recycler_view, container, false)
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     subscribeForSelectedLeague()

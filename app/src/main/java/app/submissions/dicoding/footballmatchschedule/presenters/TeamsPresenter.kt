@@ -1,7 +1,7 @@
 package app.submissions.dicoding.footballmatchschedule.presenters
 
 import app.submissions.dicoding.footballmatchschedule.exts.handleSafely
-import app.submissions.dicoding.footballmatchschedule.models.TeamDetails
+import app.submissions.dicoding.footballmatchschedule.models.Teams
 import app.submissions.dicoding.footballmatchschedule.presenters.behavior.TeamsBehavior
 import app.submissions.dicoding.footballmatchschedule.requests.to.Lookup
 import io.reactivex.disposables.Disposable
@@ -15,7 +15,7 @@ class TeamsPresenter(private val behavior: TeamsBehavior) {
         .handleSafely()
         .subscribe(
             {
-              it as TeamDetails
+              it as Teams
               behavior.showData(it.teams)
             },
             { behavior.onError(it.localizedMessage) },

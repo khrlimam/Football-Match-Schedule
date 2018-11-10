@@ -13,7 +13,6 @@ import app.submissions.dicoding.footballmatchschedule.constants.Constants
 import app.submissions.dicoding.footballmatchschedule.db.tables.Favorites
 import app.submissions.dicoding.footballmatchschedule.exts.database
 import app.submissions.dicoding.footballmatchschedule.exts.gone
-import app.submissions.dicoding.footballmatchschedule.models.holders.ItemType
 import kotlinx.android.synthetic.main.recycler_view.*
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.select
@@ -24,9 +23,9 @@ class Favorites : Fragment() {
   private var favorites = mutableListOf<Favorites>()
 
   private val adapter: FavoritesAdapter = FavoritesAdapter(favorites) {
-    when (it.dataToObject().itemType.field) {
-      ItemType.PAST -> startActivityForResult(intentFor<SeeDetail>(Constants.FAVORITE_DATA to it), FAVORITE_DETAIL)
-      ItemType.NEXT -> startActivityForResult(intentFor<NextMatchDetail>(Constants.FAVORITE_DATA to it), FAVORITE_DETAIL)
+    when (it.type) {
+      Favorites.ItemType.PAST -> startActivityForResult(intentFor<SeeDetail>(Constants.FAVORITE_DATA to it), FAVORITE_DETAIL)
+      Favorites.ItemType.NEXT -> startActivityForResult(intentFor<NextMatchDetail>(Constants.FAVORITE_DATA to it), FAVORITE_DETAIL)
     }
   }
 

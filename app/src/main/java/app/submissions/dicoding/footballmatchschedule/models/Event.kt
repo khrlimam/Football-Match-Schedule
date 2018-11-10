@@ -6,6 +6,7 @@ import app.submissions.dicoding.footballmatchschedule.exts.handleSafely
 import app.submissions.dicoding.footballmatchschedule.exts.toDate
 import app.submissions.dicoding.footballmatchschedule.exts.toLocalDateWithDayName
 import app.submissions.dicoding.footballmatchschedule.exts.toLocalTime
+import app.submissions.dicoding.footballmatchschedule.fabric.GsonFabric
 import app.submissions.dicoding.footballmatchschedule.requests.to.Lookup
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
@@ -215,7 +216,7 @@ data class Event(
         .handleSafely()
         .subscribe({
           it as Teams
-          callback(it.teams[0].teamBadge)
+          callback(it.teams[0].strTeamBadge ?: "")
         }, { info(it.message) }).isDisposed
   }
 
@@ -227,7 +228,7 @@ data class Event(
             .handleSafely()
             .subscribe({
               it as Teams
-              callback(it.teams[0].fanArt3)
+              callback(it.teams[0].strTeamFanart3 ?: "")
             }, {
               info(it.message)
             })
@@ -239,6 +240,8 @@ data class Event(
     else if (intHomeScore > intAwayScore) return idHomeTeam
     return DRAW
   }
+
+  fun toJson(): String = GsonFabric.build.toJson(this)
 
   companion object {
     private const val DRAW = "DRAW"

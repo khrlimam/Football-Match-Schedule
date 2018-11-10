@@ -22,6 +22,8 @@
     </activity>
     <activity android:name=".SeeDetail" />
     <activity android:name=".NextMatchDetail" />
+    <activity android:name=".SeeTeamDetail" />
+    <activity android:name=".SeePlayerDetail" />
   </application>
 
 </manifest>
