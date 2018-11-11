@@ -4,7 +4,7 @@ import app.submissions.dicoding.footballmatchschedule.exts.handleSafely
 import app.submissions.dicoding.footballmatchschedule.models.Events
 import app.submissions.dicoding.footballmatchschedule.models.holders.MatchNewsHolder
 import app.submissions.dicoding.footballmatchschedule.presenters.behavior.PreviousMatchBehavior
-import app.submissions.dicoding.footballmatchschedule.requests.to.LeagueSchedule
+import app.submissions.dicoding.footballmatchschedule.requests.to.Schedule
 import io.reactivex.disposables.Disposable
 
 class PreviousMatchPresenter(private val behavior: PreviousMatchBehavior) {
@@ -16,7 +16,7 @@ class PreviousMatchPresenter(private val behavior: PreviousMatchBehavior) {
 
   fun getData(leagueId: String) {
     behavior.showLoading()
-    disposable = LeagueSchedule.Request.get.past15(leagueId)
+    disposable = Schedule.Request.get.past15ByLeagueId(leagueId)
         .handleSafely()
         .subscribe(
             { response ->

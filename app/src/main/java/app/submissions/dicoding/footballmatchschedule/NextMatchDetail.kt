@@ -3,6 +3,7 @@ package app.submissions.dicoding.footballmatchschedule
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.provider.CalendarContract
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -11,7 +12,6 @@ import app.submissions.dicoding.footballmatchschedule.adapters.GlideCustomImageH
 import app.submissions.dicoding.footballmatchschedule.constants.Constants
 import app.submissions.dicoding.footballmatchschedule.db.tables.Favorites
 import app.submissions.dicoding.footballmatchschedule.exts.*
-import app.submissions.dicoding.footballmatchschedule.fabric.GsonFabric
 import app.submissions.dicoding.footballmatchschedule.models.Event
 import com.bumptech.glide.Glide
 import jp.wasabeef.blurry.Blurry
@@ -22,6 +22,7 @@ import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.okButton
+import java.util.*
 
 class NextMatchDetail : AppCompatActivity() {
 
@@ -43,7 +44,7 @@ class NextMatchDetail : AppCompatActivity() {
     val favoriteEvent = intent.getParcelableExtra<Favorites>(Constants.FAVORITE_DATA)
     if (favoriteEvent != null) {
       id = favoriteEvent.id.toString()
-      event = GsonFabric.build.fromJson<Event>(favoriteEvent.data, Class.forName(favoriteEvent.className))
+      event = favoriteEvent.dataToObject() as Event?
       isFavorite = true
     }
     viewContent()
@@ -94,7 +95,7 @@ class NextMatchDetail : AppCompatActivity() {
       database().use {
         val returnedId = insert(Favorites.TABLE_NAME,
             Favorites.DATA to event?.toJson(),
-            Favorites.TYPE to Favorites.ItemType.PAST,
+            Favorites.TYPE to Favorites.ItemType.NEXT,
             Favorites.CLASS_NAME to Event::class.java.name)
 
         id = returnedId.toString()
@@ -126,8 +127,28 @@ class NextMatchDetail : AppCompatActivity() {
     when (item?.itemId) {
       R.id.favorite_item -> toggleFavorite()
       android.R.id.home -> onBackPressed()
+      R.id.add_to_calendar -> addToCalendar()
     }
     return super.onOptionsItemSelected(item)
+  }
+
+  private fun addToCalendar() {
+    val beginCalendar = Calendar.getInstance()
+    beginCalendar.time = event?.strDateTime()?.toDate()
+    val endCalendar = Calendar.getInstance()
+    endCalendar.time = event?.strDateTime()?.toDate()
+    val beginTime = beginCalendar.timeInMillis
+    endCalendar.add(Calendar.HOUR_OF_DAY, 1)
+    val endTime = endCalendar.timeInMillis
+
+    val intent = Intent(Intent.ACTION_EDIT)
+        .setType("vnd.android.cursor.item/event")
+    intent.putExtra(CalendarContract.Events.TITLE, event?.strEvent)
+    intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime)
+    intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime)
+    intent.putExtra(CalendarContract.Events.ALL_DAY, false)
+    intent.putExtra(CalendarContract.Events.DESCRIPTION, "Watching Football match between ${event?.strEvent}")
+    startActivity(intent)
   }
 
   private fun toggleFavorite() {
@@ -141,7 +162,7 @@ class NextMatchDetail : AppCompatActivity() {
   private var menu: Menu? = null
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-    menuInflater.inflate(R.menu.favorite_menu, menu)
+    menuInflater.inflate(R.menu.next_match_menu, menu)
     this.menu = menu
     invalidateOptionsMenu()
     return super.onCreateOptionsMenu(menu)
@@ -149,7 +170,7 @@ class NextMatchDetail : AppCompatActivity() {
 
   override fun onBackPressed() {
     intent = Intent()
-    intent.putExtra(app.submissions.dicoding.footballmatchschedule.Favorites.FAVORITE_ID, processedFavoriteId)
+    intent.putExtra(app.submissions.dicoding.footballmatchschedule.fragments.Favorites.FAVORITE_ID, processedFavoriteId)
     setResult(Activity.RESULT_OK, intent)
     finish()
   }

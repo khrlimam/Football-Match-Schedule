@@ -1,4 +1,4 @@
-package app.submissions.dicoding.footballmatchschedule
+package app.submissions.dicoding.footballmatchschedule.fragments
 
 import android.app.Activity
 import android.content.Intent
@@ -8,6 +8,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import app.submissions.dicoding.footballmatchschedule.NextMatchDetail
+import app.submissions.dicoding.footballmatchschedule.R
+import app.submissions.dicoding.footballmatchschedule.PreviousMatchDetail
+import app.submissions.dicoding.footballmatchschedule.TeamDetail
 import app.submissions.dicoding.footballmatchschedule.adapters.FavoritesAdapter
 import app.submissions.dicoding.footballmatchschedule.constants.Constants
 import app.submissions.dicoding.footballmatchschedule.db.tables.Favorites
@@ -23,9 +27,10 @@ class Favorites : Fragment() {
   private var favorites = mutableListOf<Favorites>()
 
   private val adapter: FavoritesAdapter = FavoritesAdapter(favorites) {
-    when (it.type) {
-      Favorites.ItemType.PAST -> startActivityForResult(intentFor<SeeDetail>(Constants.FAVORITE_DATA to it), FAVORITE_DETAIL)
-      Favorites.ItemType.NEXT -> startActivityForResult(intentFor<NextMatchDetail>(Constants.FAVORITE_DATA to it), FAVORITE_DETAIL)
+    when (favorites[it].type) {
+      Favorites.ItemType.PAST -> startActivityForResult(intentFor<PreviousMatchDetail>(Constants.FAVORITE_DATA to favorites[it]), FAVORITE_DETAIL)
+      Favorites.ItemType.NEXT -> startActivityForResult(intentFor<NextMatchDetail>(Constants.FAVORITE_DATA to favorites[it]), FAVORITE_DETAIL)
+      Favorites.ItemType.TEAM -> startActivityForResult(intentFor<TeamDetail>(Constants.FAVORITE_DATA to favorites[it]), FAVORITE_DETAIL)
     }
   }
 

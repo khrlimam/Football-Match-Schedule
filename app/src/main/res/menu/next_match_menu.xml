@@ -7,4 +7,11 @@
     android:orderInCategory="100"
     android:title="@string/favorites"
     app:showAsAction="ifRoom" />
+
+  <item
+    android:id="@+id/add_to_calendar"
+    android:icon="@drawable/ic_notifications_active_black_24dp"
+    android:orderInCategory="100"
+    android:title="@string/add_to_calendar"
+    app:showAsAction="ifRoom" />
 </menu>

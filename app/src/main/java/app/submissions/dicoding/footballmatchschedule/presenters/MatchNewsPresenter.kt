@@ -1,7 +1,7 @@
 package app.submissions.dicoding.footballmatchschedule.presenters
 
 import app.submissions.dicoding.footballmatchschedule.presenters.behavior.MatchNewsBehavior
-import app.submissions.dicoding.footballmatchschedule.requests.to.LeagueSchedule
+import app.submissions.dicoding.footballmatchschedule.requests.to.Schedule
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -11,7 +11,7 @@ class MatchNewsPresenter(private val behavior: MatchNewsBehavior) {
   private var disposable: Disposable? = null
 
   fun getData() {
-    disposable = LeagueSchedule.Request.get.leagues()
+    disposable = Schedule.Request.get.leagues()
         .subscribeOn(Schedulers.newThread())
         .observeOn(AndroidSchedulers.mainThread())
         .map { leagues ->

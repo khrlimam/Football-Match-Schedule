@@ -13,7 +13,7 @@ interface Search {
   fun searchTeams(@Query("t") team: String): Observable<Teams>
 
   @GET("searchevents.php")
-  fun searchEvents(@Query("e") event: String): Observable<Events>
+  fun searchTeamMatches(@Query("e") event: String): Observable<Events>
 
   companion object {
     private val get: Search =

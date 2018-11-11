@@ -3,7 +3,6 @@ package app.submissions.dicoding.footballmatchschedule
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v4.content.ContextCompat
@@ -19,16 +18,11 @@ import app.submissions.dicoding.footballmatchschedule.exts.database
 import app.submissions.dicoding.footballmatchschedule.exts.fontGoogleProductRegular
 import app.submissions.dicoding.footballmatchschedule.exts.loadWithGlide
 import app.submissions.dicoding.footballmatchschedule.exts.startScaleAnimation
-import app.submissions.dicoding.footballmatchschedule.fabric.GsonFabric
 import app.submissions.dicoding.footballmatchschedule.fragments.TeamMatches
 import app.submissions.dicoding.footballmatchschedule.fragments.TeamOverview
 import app.submissions.dicoding.footballmatchschedule.fragments.TeamPlayers
 import app.submissions.dicoding.footballmatchschedule.models.Team
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.team_detail.*
 import org.jetbrains.anko.ctx
@@ -36,10 +30,9 @@ import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.design.snackbar
 
-class SeeTeamDetail : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
+class TeamDetail : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
 
   private var collapsedMenu: Menu? = null
-  private var isAppBarExpanded: Boolean = false
   private var isFavorite: Boolean = false
   private lateinit var id: String
   private var teamDetail: Team? = null
@@ -52,14 +45,13 @@ class SeeTeamDetail : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener 
     setSupportActionBar(toolbar)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
     app_bar.addOnOffsetChangedListener(this)
-    fab.setOnClickListener { toggleFavorite() }
     teamDetail = intent.getParcelableExtra(Constants.TEAM_DATA)
 
-    val favoriteEvent = intent.getParcelableExtra<Favorites>(Constants.FAVORITE_DATA)
-    if (favoriteEvent != null) {
+    val favoriteTeam = intent.getParcelableExtra<Favorites>(Constants.FAVORITE_DATA)
+    if (favoriteTeam != null) {
       isFavorite = true
-      id = favoriteEvent.id.toString()
-      teamDetail = GsonFabric.build.fromJson<Team>(favoriteEvent.data, Class.forName(favoriteEvent.className))
+      id = favoriteTeam.id.toString()
+      teamDetail = favoriteTeam.dataToObject() as Team
     }
 
     showData()
@@ -107,7 +99,9 @@ class SeeTeamDetail : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener 
         FragmentPagerAdapter.FragmentData("Players", teamPlayers),
         FragmentPagerAdapter.FragmentData("Matches", teamMatches)
     ))
+
     tabContainer.adapter = adapter
+    tabContainer.offscreenPageLimit = 3
     tabs.setupWithViewPager(tabContainer)
   }
 
@@ -127,17 +121,10 @@ class SeeTeamDetail : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener 
 
   private fun toggleFavoriteIcon() {
     if (isFavorite) {
-      fab.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.un_favorite_border_color))
       collapsedMenu?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.un_favorite_border_color)
     } else {
-      fab.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.add_favorite_border_color))
       collapsedMenu?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.add_favorite_border_color)
     }
-  }
-
-  override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-    collapsedMenu?.getItem(0)?.isVisible = !isAppBarExpanded
-    return super.onPrepareOptionsMenu(menu)
   }
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -181,39 +168,19 @@ class SeeTeamDetail : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener 
 
   override fun onBackPressed() {
     intent = Intent()
-    intent.putExtra(app.submissions.dicoding.footballmatchschedule.Favorites.FAVORITE_ID, processedFavoriteId)
+    intent.putExtra(app.submissions.dicoding.footballmatchschedule.fragments.Favorites.FAVORITE_ID, processedFavoriteId)
     setResult(Activity.RESULT_OK, intent)
     finish()
   }
 
   override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
     if (Math.abs(verticalOffset) - app_bar.totalScrollRange == 0) {
-      isAppBarExpanded = false
       toolbar_layout.title = teamDetail?.strTeam
       invalidateOptionsMenu()
     } else {
       toolbar_layout.title = ""
-      isAppBarExpanded = true
       invalidateOptionsMenu()
     }
-  }
-
-  inner class OnImageLoaded : RequestListener<Bitmap> {
-    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
-      return false
-    }
-
-    override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-      resource?.let { bitmap ->
-        Blurry.with(ctx).async().from(resource).into(ivImgHeader)
-        Palette.from(bitmap).generate {
-          val color = it.getMutedColor(ContextCompat.getColor(ctx, R.color.colorAccent))
-          toolbar_layout.setContentScrimColor(color)
-        }
-      }
-      return false
-    }
-
   }
 
 }

@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import app.submissions.dicoding.footballmatchschedule.R
-import app.submissions.dicoding.footballmatchschedule.SeeTeamDetail
+import app.submissions.dicoding.footballmatchschedule.TeamDetail
 import app.submissions.dicoding.footballmatchschedule.adapters.InlineImageViewDataHolder
 import app.submissions.dicoding.footballmatchschedule.adapters.InlineImageLabelRecyclerViewAdapter
 import app.submissions.dicoding.footballmatchschedule.constants.Constants
@@ -30,7 +30,7 @@ class TeamsFragment : Fragment() {
   private val teamDetailsData = mutableListOf<Team>()
   private val data = mutableListOf<InlineImageViewDataHolder>()
   private val adapter = InlineImageLabelRecyclerViewAdapter(data) {
-    startActivity<SeeTeamDetail>(Constants.TEAM_DATA to teamDetailsData[it])
+    startActivity<TeamDetail>(Constants.TEAM_DATA to teamDetailsData[it])
   }
   private val presenter = TeamsPresenter(MyBehavior())
 

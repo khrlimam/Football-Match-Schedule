@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import app.submissions.dicoding.footballmatchschedule.R
-import app.submissions.dicoding.footballmatchschedule.SeeTeamDetail
+import app.submissions.dicoding.footballmatchschedule.TeamDetail
 import app.submissions.dicoding.footballmatchschedule.adapters.SearchResultAdapter
 import app.submissions.dicoding.footballmatchschedule.constants.Constants
 import app.submissions.dicoding.footballmatchschedule.exts.gone
@@ -18,7 +18,7 @@ import app.submissions.dicoding.footballmatchschedule.exts.visible
 import app.submissions.dicoding.footballmatchschedule.models.Team
 import app.submissions.dicoding.footballmatchschedule.presenters.SearchPresenter
 import app.submissions.dicoding.footballmatchschedule.presenters.behavior.SearchBehavior
-import kotlinx.android.synthetic.main.recycler_view.*
+import kotlinx.android.synthetic.main.recycler_view_with_no_data_bg.*
 import kotlinx.android.synthetic.main.search_fragment.*
 import org.jetbrains.anko.okButton
 import org.jetbrains.anko.support.v4.alert
@@ -30,7 +30,7 @@ class SearchFragment : Fragment(), TextWatcher {
   private val presenter = SearchPresenter(MyBehavior())
   private val data: MutableList<Team> = mutableListOf()
   private val adapter: SearchResultAdapter = SearchResultAdapter(data) {
-    startActivity<SeeTeamDetail>(Constants.TEAM_DATA to it)
+    startActivity<TeamDetail>(Constants.TEAM_DATA to it)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -90,11 +90,9 @@ class SearchFragment : Fragment(), TextWatcher {
 
     override fun showLoading() {
       shimmer.visible()
-      shimmer.startShimmer()
     }
 
     override fun hideLoading() {
-      shimmer.stopShimmer()
       shimmer.gone()
     }
 

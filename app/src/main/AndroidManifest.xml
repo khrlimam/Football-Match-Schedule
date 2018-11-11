@@ -20,10 +20,10 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <activity android:name=".SeeDetail" />
+    <activity android:name=".PreviousMatchDetail" />
     <activity android:name=".NextMatchDetail" />
-    <activity android:name=".SeeTeamDetail" />
-    <activity android:name=".SeePlayerDetail" />
+    <activity android:name=".TeamDetail" />
+    <activity android:name=".PlayerDetail" />
   </application>
 
 </manifest>

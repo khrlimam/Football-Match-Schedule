@@ -18,7 +18,6 @@ import app.submissions.dicoding.footballmatchschedule.exts.database
 import app.submissions.dicoding.footballmatchschedule.exts.fontGoogleProductRegular
 import app.submissions.dicoding.footballmatchschedule.exts.loadWithGlide
 import app.submissions.dicoding.footballmatchschedule.exts.startScaleAnimation
-import app.submissions.dicoding.footballmatchschedule.fabric.GsonFabric
 import app.submissions.dicoding.footballmatchschedule.fragments.Lineups
 import app.submissions.dicoding.footballmatchschedule.fragments.Timeline
 import app.submissions.dicoding.footballmatchschedule.models.Event
@@ -31,7 +30,7 @@ import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.design.snackbar
 
-class SeeDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffsetChangedListener {
+class PreviousMatchDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffsetChangedListener {
 
   private var collapsedMenu: Menu? = null
   private var isAppBarExpanded: Boolean = false
@@ -54,7 +53,7 @@ class SeeDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffsetChangedL
     if (favoriteEvent != null) {
       isFavorite = true
       id = favoriteEvent.id.toString()
-      event = GsonFabric.build.fromJson<Event>(favoriteEvent.data, Class.forName(favoriteEvent.className))
+      event = favoriteEvent.dataToObject() as Event?
     }
 
     showData()
@@ -194,7 +193,7 @@ class SeeDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffsetChangedL
 
   override fun onBackPressed() {
     intent = Intent()
-    intent.putExtra(app.submissions.dicoding.footballmatchschedule.Favorites.FAVORITE_ID, processedFavoriteId)
+    intent.putExtra(app.submissions.dicoding.footballmatchschedule.fragments.Favorites.FAVORITE_ID, processedFavoriteId)
     setResult(Activity.RESULT_OK, intent)
     finish()
   }

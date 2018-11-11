@@ -5,7 +5,7 @@ import app.submissions.dicoding.footballmatchschedule.models.holders.DataType
 import app.submissions.dicoding.footballmatchschedule.models.holders.ItemBodyHolder
 import app.submissions.dicoding.footballmatchschedule.models.holders.ItemHeaderHolder
 import app.submissions.dicoding.footballmatchschedule.presenters.behavior.NextScheduleBehavior
-import app.submissions.dicoding.footballmatchschedule.requests.to.LeagueSchedule
+import app.submissions.dicoding.footballmatchschedule.requests.to.Schedule
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -35,7 +35,7 @@ class NextSchedulePresenter(private val behavior: NextScheduleBehavior) {
 
   fun getData(leagueId: String) {
     behavior.showLoading()
-    disposable = LeagueSchedule.Request.get.next15(leagueId)
+    disposable = Schedule.Request.get.next15ByLeagueId(leagueId)
         .subscribeOn(Schedulers.newThread())
         .observeOn(AndroidSchedulers.mainThread())
         .map { data ->

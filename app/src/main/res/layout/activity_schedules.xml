@@ -6,7 +6,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:fitsSystemWindows="true"
-  tools:context=".MatchNews">
+  tools:context=".fragments.MatchNews">
 
   <android.support.design.widget.AppBarLayout
     android:id="@+id/appbar"
@@ -15,18 +15,32 @@
     android:paddingTop="@dimen/appbar_padding_top"
     android:theme="@style/AppTheme.AppBarOverlay">
 
-    <android.support.v7.widget.AppCompatSpinner
-      android:id="@+id/sLeagues"
+    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginStart="8dp"
-      android:layout_marginEnd="18dp"
-      android:background="@android:color/transparent"
       android:popupTheme="@style/AppTheme.PopupOverlay"
-      android:spinnerMode="dropdown"
-      android:theme="@style/Theme.AppCompat.Light"
-      app:layout_scrollFlags="scroll|enterAlways"
-      tools:targetApi="lollipop" />
+      app:layout_scrollFlags="scroll|enterAlways">
+
+      <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/sLeagues"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="18dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:spinnerMode="dropdown"
+        android:theme="@style/Theme.AppCompat.Light"
+        tools:targetApi="lollipop" />
+
+      <ImageView
+        android:id="@+id/downArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="20dp"
+        app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp" />
+    </LinearLayout>
 
     <android.support.design.widget.TabLayout
       android:id="@+id/tabs"

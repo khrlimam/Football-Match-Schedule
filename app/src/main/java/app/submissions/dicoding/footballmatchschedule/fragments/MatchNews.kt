@@ -1,15 +1,13 @@
-package app.submissions.dicoding.footballmatchschedule
+package app.submissions.dicoding.footballmatchschedule.fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.*
 import android.widget.AdapterView
+import app.submissions.dicoding.footballmatchschedule.R
 import app.submissions.dicoding.footballmatchschedule.adapters.FragmentPagerAdapter
 import app.submissions.dicoding.footballmatchschedule.adapters.ImageTitleSpinnerAdapter
-import app.submissions.dicoding.footballmatchschedule.fragments.NextMatch
-import app.submissions.dicoding.footballmatchschedule.fragments.PreviousMatch
-import app.submissions.dicoding.footballmatchschedule.fragments.TeamsFragment
 import app.submissions.dicoding.footballmatchschedule.models.League
 import app.submissions.dicoding.footballmatchschedule.presenters.MatchNewsPresenter
 import app.submissions.dicoding.footballmatchschedule.presenters.behavior.MatchNewsBehavior
@@ -56,6 +54,7 @@ class MatchNews : Fragment(), MatchNewsBehavior {
     tabContainer.offscreenPageLimit = 3
     sLeagues.adapter = spinnerAdapter
     tabs.setupWithViewPager(tabContainer)
+    downArrow.setOnClickListener { sLeagues.performClick() }
   }
 
   private fun publishSelectedItem(): AdapterView.OnItemSelectedListener? =

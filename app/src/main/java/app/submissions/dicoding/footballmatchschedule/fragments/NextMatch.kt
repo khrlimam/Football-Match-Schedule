@@ -74,6 +74,8 @@ class NextMatch : Fragment(), (Event) -> Unit {
     override fun showData(schedules: List<DataType>) {
       dataItems.clear()
       dataItems.addAll(schedules)
+      rvRecyclerView.scrollToPosition(schedules.size - 1)
+      rvRecyclerView.scrollToPosition(0)
       adapter.notifyDataSetChanged()
     }
 
@@ -85,7 +87,6 @@ class NextMatch : Fragment(), (Event) -> Unit {
     override fun hideLoading() {
       shimmer?.stopShimmer()
       shimmer?.gone()
-      adapter.notifyDataSetChanged()
     }
 
     override fun onError(msg: String) {

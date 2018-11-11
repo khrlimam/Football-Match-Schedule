@@ -2,6 +2,7 @@ package app.submissions.dicoding.footballmatchschedule.exts
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
 import android.support.v4.app.Fragment
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -14,11 +15,16 @@ import com.bumptech.glide.Glide
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
 fun View.invisible() {
   visibility = View.INVISIBLE
+}
+
+fun String.loadImageUrlToBitmap(callback: (Bitmap) -> Unit) {
+
 }
 
 fun View.visible() {
@@ -84,8 +90,13 @@ fun Date.toLocalTime(): String = SimpleDateFormat("HH:mm").format(this)
 
 @SuppressLint("SimpleDateFormat")
 fun String.toDate(): Date {
-  val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ssZZ")
-  // set timezone to gmt+8
-  formatter.timeZone = TimeZone.getTimeZone("Asia/Makassar")
-  return formatter.parse(this)
+  return try {
+    val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ssZZ")
+    formatter.timeZone = TimeZone.getTimeZone("Asia/Makassar")
+    formatter.parse(this)
+  } catch (e: ParseException) {
+    val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    formatter.timeZone = TimeZone.getTimeZone("Asia/Makassar")
+    formatter.parse(this)
+  }
 }

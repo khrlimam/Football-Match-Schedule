@@ -192,7 +192,7 @@ data class Event(
     return description
   }
 
-  private fun strDateTime() = "$dateEvent $strTime"
+  fun strDateTime() = "$dateEvent $strTime"
 
   @SuppressLint("SimpleDateFormat")
   fun localTime(): String = strDateTime().toDate().toLocalTime()
@@ -216,19 +216,21 @@ data class Event(
         .handleSafely()
         .subscribe({
           it as Teams
-          callback(it.teams[0].strTeamBadge ?: "")
+          callback(it.teams[0].strTeamBadge
+              ?: DEFAULT_IMG_URL)
         }, { info(it.message) }).isDisposed
   }
 
   fun winnerBanner(callback: (String) -> Unit) {
     when (winnerTeamId()) {
-      DRAW -> callback("https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&h=650&w=940")
+      DRAW -> callback(DEFAULT_IMG_URL)
       else ->
         Lookup.Request.get.byTeam(winnerTeamId())
             .handleSafely()
             .subscribe({
               it as Teams
-              callback(it.teams[0].strTeamFanart3 ?: "")
+              callback(it.teams[0].strTeamFanart3
+                  ?: DEFAULT_IMG_URL)
             }, {
               info(it.message)
             })
@@ -245,8 +247,10 @@ data class Event(
 
   companion object {
     private const val DRAW = "DRAW"
+    private const val DEFAULT_IMG_URL = "https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
   }
 
 }
 
 data class Events(val events: List<Event>)
+data class Results(val results: List<Event>)
