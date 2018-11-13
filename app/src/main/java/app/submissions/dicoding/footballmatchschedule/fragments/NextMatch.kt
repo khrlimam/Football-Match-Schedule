@@ -3,7 +3,6 @@ package app.submissions.dicoding.footballmatchschedule.fragments
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +48,6 @@ class NextMatch : Fragment(), (Event) -> Unit {
 
   private fun subscribeForSelectedLeague() {
     leagueSubject?.subscribe {
-      Log.i(javaClass.name, it.toString())
       presenter.dispose()
       presenter.getData(it.toString())
     }?.isDisposed
@@ -74,8 +72,6 @@ class NextMatch : Fragment(), (Event) -> Unit {
     override fun showData(schedules: List<DataType>) {
       dataItems.clear()
       dataItems.addAll(schedules)
-      rvRecyclerView.scrollToPosition(schedules.size - 1)
-      rvRecyclerView.scrollToPosition(0)
       adapter.notifyDataSetChanged()
     }
 

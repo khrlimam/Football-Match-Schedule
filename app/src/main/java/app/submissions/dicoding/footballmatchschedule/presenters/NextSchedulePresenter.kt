@@ -55,9 +55,12 @@ class NextSchedulePresenter(private val behavior: NextScheduleBehavior) {
                     teamHomeBadge {
                       homeBadge = it
                       ++counter
-                      if (counter == data.events.size)
-                      // show the data again after all images are loaded
+                      if (counter == data.events.size) {
+                        // show the data again after all images are loaded
                         behavior.showData(getGroupedDataItem(data.events))
+                        //reset counter anticipating user request the data again with the same object state
+                        counter = 0
+                      }
                     }
                   }
                 }

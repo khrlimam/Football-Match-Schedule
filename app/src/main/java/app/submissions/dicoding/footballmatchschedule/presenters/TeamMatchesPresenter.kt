@@ -22,16 +22,12 @@ class TeamMatchesPresenter(private val behavior: TeamMatchesBehavior) {
         .subscribeOn(Schedulers.newThread())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe({
-          collectedData.addAll(it.events.map { item ->
-            Favorites(-1, item.toJson(), Favorites.ItemType.NEXT, Event::class.java.name)
-          })
+          collectedData.addAll(it.events.map { item -> Favorites(-1, item.toJson(), Favorites.ItemType.NEXT, Event::class.java.name) })
           Schedule.Request.get.past5ByTeamId(teamId)
               .subscribeOn(Schedulers.newThread())
               .observeOn(AndroidSchedulers.mainThread())
               .subscribe({ resp ->
-                collectedData.addAll(resp.results.map { item ->
-                  Favorites(-1, item.toJson(), Favorites.ItemType.PAST, Event::class.java.name)
-                })
+                collectedData.addAll(resp.results.map { item -> Favorites(-1, item.toJson(), Favorites.ItemType.PAST, Event::class.java.name) })
                 behavior.showData(collectedData)
               }, { err -> behavior.onError(err.localizedMessage) }, { behavior.hideLoading() })
         }, { behavior.onError(it.localizedMessage) }, { })

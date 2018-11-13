@@ -64,8 +64,12 @@ class FavoritesAdapter(val favorites: List<Favorites>, val click: (Int) -> Unit)
       itemView?.apply {
         val event = data.dataToObject() as Event
         event.apply {
-          ivHome.loadWithGlide(homeBadge)
-          ivAway.loadWithGlide(awayBadge)
+          homeBadge?.let { ivHome.loadWithGlide(homeBadge) }
+              ?: teamHomeBadge { ivHome.loadWithGlide(it) }
+
+          awayBadge?.let { ivAway.loadWithGlide(awayBadge) }
+              ?: teamAwayBadge { ivAway.loadWithGlide(it) }
+
           tvTime.text = localTime()
           tvHome.text = strHomeTeam
           tvAway.text = strAwayTeam

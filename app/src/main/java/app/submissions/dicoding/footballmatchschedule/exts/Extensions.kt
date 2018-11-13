@@ -29,6 +29,7 @@ fun ImageView.loadImageUrlAsBitmap(url: String?, onBitmapReady: (Bitmap?) -> Uni
   Glide.with(context)
       .asBitmap()
       .load(url ?: Constants.DEFAULT_IMG_URL)
+      .thumbnail(.1f)
       .listener(GlideCustomImageHandler(onBitmapReady))
       .into(this)
 }
