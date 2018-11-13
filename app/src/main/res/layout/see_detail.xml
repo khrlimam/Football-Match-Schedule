@@ -70,13 +70,15 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/tvTime" />
 
-        <LinearLayout
+        <TextView
           android:id="@+id/tvScoreResult"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="8dp"
           android:layout_marginEnd="8dp"
           android:gravity="center_horizontal"
+          android:paddingStart="10dp"
+          android:paddingEnd="10dp"
           android:text="2 : 1"
           android:textAlignment="center"
           android:textColor="@android:color/white"
@@ -85,58 +87,7 @@
           app:layout_constraintBottom_toBottomOf="@+id/ivHome"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="@+id/ivHome">
-
-          <TextView
-            android:id="@+id/tvScoreHome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:gravity="center_horizontal"
-            android:text="@string/score_example"
-            android:textColor="@android:color/white"
-            android:textSize="40sp"
-            android:textStyle="bold" />
-
-          <TextView
-            android:id="@+id/tvShotsHome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:text="@string/shots_example"
-            android:textColor="@android:color/white"
-            android:textSize="10sp" />
-
-          <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="8dp"
-            android:text=":"
-            android:textColor="@android:color/white"
-            android:textSize="40sp"
-            android:textStyle="bold" />
-
-          <TextView
-            android:id="@+id/tvScoreAway"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="8dp"
-            android:text="@string/score_example"
-            android:textColor="@android:color/white"
-            android:textSize="40sp"
-            android:textStyle="bold" />
-
-          <TextView
-            android:id="@+id/tvShotsAway"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:text="@string/shots_example"
-            android:textColor="@android:color/white"
-            android:textSize="10sp" />
-        </LinearLayout>
+          app:layout_constraintTop_toTopOf="@+id/ivHome" />
 
         <TextView
           android:id="@+id/tvTime"
@@ -182,6 +133,8 @@
           android:layout_width="150dp"
           android:layout_height="wrap_content"
           android:layout_marginTop="8dp"
+          android:paddingStart="10dp"
+          android:paddingEnd="10dp"
           android:text="Manchester United"
           android:textAlignment="center"
           android:textColor="@android:color/white"
@@ -196,6 +149,8 @@
           android:layout_width="150dp"
           android:layout_height="wrap_content"
           android:layout_marginTop="8dp"
+          android:paddingStart="10dp"
+          android:paddingEnd="10dp"
           android:text="Huddersfield Town"
           android:textAlignment="center"
           android:textColor="@android:color/white"

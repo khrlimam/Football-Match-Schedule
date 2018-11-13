@@ -104,11 +104,7 @@ class PreviousMatchDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffs
       tvLeague.text = strLeague
       tvLeague.fontGoogleProductRegular()
 
-      tvScoreHome.text = intHomeScore.toString()
-      tvShotsHome.text = "/${intHomeShots ?: 0}"
-
-      tvScoreAway.text = intAwayScore.toString()
-      tvShotsAway.text = "/${intAwayShots ?: 0}"
+      tvScoreResult.text = "$intHomeScore : $intAwayScore"
     }
   }
 
