@@ -1,6 +1,5 @@
 package app.submissions.dicoding.footballmatchschedule.presenters
 
-import android.util.Log
 import app.submissions.dicoding.footballmatchschedule.exts.handleSafely
 import app.submissions.dicoding.footballmatchschedule.models.Players
 import app.submissions.dicoding.footballmatchschedule.presenters.behavior.TeamPlayersBehavior

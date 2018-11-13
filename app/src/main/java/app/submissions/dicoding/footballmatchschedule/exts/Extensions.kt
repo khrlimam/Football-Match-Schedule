@@ -9,6 +9,8 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import app.submissions.dicoding.footballmatchschedule.R
+import app.submissions.dicoding.footballmatchschedule.adapters.GlideCustomImageHandler
+import app.submissions.dicoding.footballmatchschedule.constants.Constants
 import app.submissions.dicoding.footballmatchschedule.db.MyDatabaseOpenHelper
 import app.submissions.dicoding.footballmatchschedule.fabric.FontProducer
 import com.bumptech.glide.Glide
@@ -23,8 +25,12 @@ fun View.invisible() {
   visibility = View.INVISIBLE
 }
 
-fun String.loadImageUrlToBitmap(callback: (Bitmap) -> Unit) {
-
+fun ImageView.loadImageUrlAsBitmap(url: String?, onBitmapReady: (Bitmap?) -> Unit) {
+  Glide.with(context)
+      .asBitmap()
+      .load(url ?: Constants.DEFAULT_IMG_URL)
+      .listener(GlideCustomImageHandler(onBitmapReady))
+      .into(this)
 }
 
 fun View.visible() {
@@ -50,9 +56,9 @@ fun TextView.fontGoogleProductBold() {
   typeface = font
 }
 
-fun ImageView.loadWithGlide(url: String) {
+fun ImageView.loadWithGlide(url: String?) {
   Glide.with(this)
-      .load(url)
+      .load(url ?: Constants.DEFAULT_IMG_URL)
       .thumbnail(.1f)
       .into(this)
 }

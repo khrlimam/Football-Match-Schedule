@@ -2,6 +2,7 @@ package app.submissions.dicoding.footballmatchschedule.models
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
+import app.submissions.dicoding.footballmatchschedule.constants.Constants.DEFAULT_IMG_URL
 import app.submissions.dicoding.footballmatchschedule.exts.handleSafely
 import app.submissions.dicoding.footballmatchschedule.exts.toDate
 import app.submissions.dicoding.footballmatchschedule.exts.toLocalDateWithDayName
@@ -168,13 +169,12 @@ data class Event(
     var strMap: String? = null,
     @SerializedName("strLocked")
     @Expose
-    var strLocked: String? = null
+    var strLocked: String? = null,
+    var homeBadge: String?,
+    var awayBadge: String?
 ) : Parcelable, AnkoLogger {
 
-  var awayBadge: String? = null
-  var homeBadge: String? = null
-
-  fun winnerDescription(): String {
+  private fun winnerDescription(): String {
     var description = "The match is draw with score $intHomeScore:$intAwayScore"
     if (intHomeScore > intAwayScore)
       description = "$strHomeTeam wins the match with score $intHomeScore"
@@ -247,7 +247,6 @@ data class Event(
 
   companion object {
     private const val DRAW = "DRAW"
-    private const val DEFAULT_IMG_URL = "https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
   }
 
 }

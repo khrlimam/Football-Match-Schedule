@@ -11,17 +11,12 @@ import android.support.v7.graphics.Palette
 import android.view.Menu
 import android.view.MenuItem
 import app.submissions.dicoding.footballmatchschedule.adapters.FragmentPagerAdapter
-import app.submissions.dicoding.footballmatchschedule.adapters.GlideCustomImageHandler
 import app.submissions.dicoding.footballmatchschedule.constants.Constants
 import app.submissions.dicoding.footballmatchschedule.db.tables.Favorites
-import app.submissions.dicoding.footballmatchschedule.exts.database
-import app.submissions.dicoding.footballmatchschedule.exts.fontGoogleProductRegular
-import app.submissions.dicoding.footballmatchschedule.exts.loadWithGlide
-import app.submissions.dicoding.footballmatchschedule.exts.startScaleAnimation
+import app.submissions.dicoding.footballmatchschedule.exts.*
 import app.submissions.dicoding.footballmatchschedule.fragments.Lineups
 import app.submissions.dicoding.footballmatchschedule.fragments.Timeline
 import app.submissions.dicoding.footballmatchschedule.models.Event
-import com.bumptech.glide.Glide
 import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.see_detail.*
 import org.jetbrains.anko.AnkoLogger
@@ -80,22 +75,17 @@ class PreviousMatchDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffs
     event?.apply {
 
       winnerBanner {
-        Glide.with(ctx)
-            .asBitmap()
-            .load(it)
-            .listener(GlideCustomImageHandler { resource ->
-              resource?.let { bitmap ->
-                Blurry.with(ctx).async().from(bitmap).into(ivImgHeader)
-                Palette.from(bitmap).generate { palette ->
-                  val color = palette.getMutedColor(ContextCompat.getColor(ctx, R.color.colorAccent))
-                  toolbar_layout.setContentScrimColor(color)
-                }
-              }
-            })
-            .into(ivImgHeader)
+        ivImgHeader.loadImageUrlAsBitmap(it) { resource ->
+          resource?.let { bitmap ->
+            Blurry.with(ctx).async().from(bitmap).into(ivImgHeader)
+            Palette.from(bitmap).generate { palette ->
+              val color = palette.getMutedColor(ContextCompat.getColor(ctx, R.color.colorAccent))
+              toolbar_layout.setContentScrimColor(color)
+            }
+          }
+          ivImgHeader.startScaleAnimation()
+        }
       }
-
-      ivImgHeader.startScaleAnimation()
 
       tvAway.text = strAwayTeam
       tvAway.fontGoogleProductRegular()
@@ -170,7 +160,7 @@ class PreviousMatchDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffs
         id = returnedId.toString()
       }
       isFavorite = true
-      snackbar(tabContainer, "Favorited!").show()
+      snackbar(tabContainer, getString(R.string.favorited)).show()
       processedFavoriteId = -1L
     } catch (e: Exception) {
       snackbar(tabContainer, e.localizedMessage).show()
@@ -185,7 +175,7 @@ class PreviousMatchDetail : AppCompatActivity(), AnkoLogger, AppBarLayout.OnOffs
       }
       isFavorite = false
       processedFavoriteId = id.toLong()
-      snackbar(tabContainer, "Removed from favorite!")
+      snackbar(tabContainer, getString(R.string.removed_from_favorite))
     } catch (e: Exception) {
       snackbar(tabContainer, e.localizedMessage).show()
     }

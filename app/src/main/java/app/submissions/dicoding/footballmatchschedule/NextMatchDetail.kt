@@ -8,12 +8,10 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import app.submissions.dicoding.footballmatchschedule.adapters.GlideCustomImageHandler
 import app.submissions.dicoding.footballmatchschedule.constants.Constants
 import app.submissions.dicoding.footballmatchschedule.db.tables.Favorites
 import app.submissions.dicoding.footballmatchschedule.exts.*
 import app.submissions.dicoding.footballmatchschedule.models.Event
-import com.bumptech.glide.Glide
 import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.next_match_detail.*
 import org.jetbrains.anko.alert
@@ -71,14 +69,10 @@ class NextMatchDetail : AppCompatActivity() {
 
     event?.apply {
       winnerBanner {
-        Glide.with(ctx)
-            .asBitmap()
-            .load(it)
-            .listener(GlideCustomImageHandler { bitmap ->
-              Blurry.with(ctx).async().from(bitmap).into(ivBackground)
-              ivBackground.startScaleAnimation()
-            })
-            .into(ivBackground)
+        ivBackground.loadImageUrlAsBitmap(it) { bitmap ->
+          Blurry.with(ctx).async().from(bitmap).into(ivBackground)
+          ivBackground.startScaleAnimation()
+        }
       }
       teamAwayBadge { ivAway.loadWithGlide(it) }
       teamHomeBadge { ivHome.loadWithGlide(it) }
@@ -101,7 +95,7 @@ class NextMatchDetail : AppCompatActivity() {
         id = returnedId.toString()
       }
       isFavorite = true
-      snackbar(clContainer, "Favorited!").show()
+      snackbar(clContainer, getString(R.string.favorited)).show()
       processedFavoriteId = -1L
     } catch (e: Exception) {
       snackbar(clContainer, e.localizedMessage).show()
@@ -116,7 +110,7 @@ class NextMatchDetail : AppCompatActivity() {
             "id" to id)
       }
       isFavorite = false
-      snackbar(clContainer, "Removed from favorite!")
+      snackbar(clContainer, getString(R.string.removed_from_favorite))
       processedFavoriteId = id.toLong()
     } catch (e: Exception) {
       snackbar(clContainer, e.localizedMessage).show()

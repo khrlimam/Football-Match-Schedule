@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import app.submissions.dicoding.footballmatchschedule.R
 import app.submissions.dicoding.footballmatchschedule.TeamDetail
-import app.submissions.dicoding.footballmatchschedule.adapters.InlineImageViewDataHolder
 import app.submissions.dicoding.footballmatchschedule.adapters.InlineImageLabelRecyclerViewAdapter
+import app.submissions.dicoding.footballmatchschedule.adapters.InlineImageViewDataHolder
 import app.submissions.dicoding.footballmatchschedule.constants.Constants
 import app.submissions.dicoding.footballmatchschedule.constants.League
 import app.submissions.dicoding.footballmatchschedule.exts.gone
@@ -59,7 +59,9 @@ class TeamsFragment : Fragment() {
       teamDetailsData.addAll(teamDetails)
 
       data.clear()
-      data.addAll(teamDetailsData.map { InlineImageViewDataHolder(it.strTeam ?: "", it.strTeamBadge ?: "") })
+      data.addAll(teamDetailsData.map {
+        InlineImageViewDataHolder(it.strTeam ?: "", it.strTeamBadge ?: "")
+      })
 
       adapter.notifyDataSetChanged()
     }

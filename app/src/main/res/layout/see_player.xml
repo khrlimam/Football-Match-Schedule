@@ -158,8 +158,6 @@
     android:layout_width="96dp"
     android:layout_height="96dp"
     android:src="@mipmap/ic_launcher_round"
-    app:civ_border_color="@color/colorAccent"
-    app:civ_border_width="2dp"
     app:layout_anchor="@id/app_bar"
     app:layout_anchorGravity="bottom|center" />
 </android.support.design.widget.CoordinatorLayout>

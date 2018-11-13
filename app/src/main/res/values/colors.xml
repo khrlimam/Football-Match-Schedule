@@ -6,23 +6,13 @@
 
   <!--flat colors-->
   <color name="flatColorLightRed">#e74c3c</color>
-  <color name="flatColorLightYellow">#f1c40f</color>
   <color name="flirtatious">#fed330</color>
-  <color name="flatColorLightGreen">#2ecc71</color>
-  <color name="greenSea">#16a085</color>
   <color name="nephritis">#27ae60</color>
   <color name="peterRiver">#3498db</color>
-  <color name="darkMountain">#10ac84</color>
   <color name="greenHeaderField">#0B8449</color>
-  <color name="wildCaribbeanGreen">#1dd1a1</color>
-  <color name="flatColorLightBlue">#3498db</color>
-  <color name="flatColorLighterBlue">#22a6b3</color>
   <color name="blurple">#4834d4</color>
   <color name="darkWhite">#EBEBEB</color>
   <color name="lighterDark">#727272</color>
   <color name="darkWhiteTransparent">#80EBEBEE</color>
-  <color name="transparent_grey">#4D000055</color>
   <!--transparent material colors-->
-  <color name="transparent_green">#d900e676</color>
-  <color name="transparent_blue">#d903a9f4</color>
 </resources>

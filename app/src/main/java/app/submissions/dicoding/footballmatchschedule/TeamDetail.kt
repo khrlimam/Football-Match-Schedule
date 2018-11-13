@@ -11,18 +11,13 @@ import android.support.v7.graphics.Palette
 import android.view.Menu
 import android.view.MenuItem
 import app.submissions.dicoding.footballmatchschedule.adapters.FragmentPagerAdapter
-import app.submissions.dicoding.footballmatchschedule.adapters.GlideCustomImageHandler
 import app.submissions.dicoding.footballmatchschedule.constants.Constants
 import app.submissions.dicoding.footballmatchschedule.db.tables.Favorites
-import app.submissions.dicoding.footballmatchschedule.exts.database
-import app.submissions.dicoding.footballmatchschedule.exts.fontGoogleProductRegular
-import app.submissions.dicoding.footballmatchschedule.exts.loadWithGlide
-import app.submissions.dicoding.footballmatchschedule.exts.startScaleAnimation
+import app.submissions.dicoding.footballmatchschedule.exts.*
 import app.submissions.dicoding.footballmatchschedule.fragments.TeamMatches
 import app.submissions.dicoding.footballmatchschedule.fragments.TeamOverview
 import app.submissions.dicoding.footballmatchschedule.fragments.TeamPlayers
 import app.submissions.dicoding.footballmatchschedule.models.Team
-import com.bumptech.glide.Glide
 import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.team_detail.*
 import org.jetbrains.anko.ctx
@@ -60,23 +55,19 @@ class TeamDetail : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
 
   @SuppressLint("SetTextI18n")
   private fun showData() {
-    Glide.with(this)
-        .asBitmap()
-        .load(teamDetail?.strTeamFanart2
-            ?: "https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260")
-        .listener(GlideCustomImageHandler {
-          it?.let { bitmap ->
-            Blurry.with(ctx).async().from(bitmap).into(ivImgHeader)
-            Palette.from(bitmap).generate { palette ->
-              val color = palette.getMutedColor(ContextCompat.getColor(ctx, R.color.colorAccent))
-              toolbar_layout.setContentScrimColor(color)
-              ivImgHeader.startScaleAnimation()
-            }
-          }
-        }).into(ivImgHeader)
+    ivImgHeader.loadImageUrlAsBitmap(teamDetail?.strTeamFanart2) {
+      it?.let { bitmap ->
+        Blurry.with(ctx).async().from(bitmap).into(ivImgHeader)
+        Palette.from(bitmap).generate { palette ->
+          val color = palette.getMutedColor(ContextCompat.getColor(ctx, R.color.colorAccent))
+          toolbar_layout.setContentScrimColor(color)
+          ivImgHeader.startScaleAnimation()
+        }
+      }
+    }
 
     teamDetail?.apply {
-      ivTeamBadge.loadWithGlide(strTeamBadge ?: "")
+      ivTeamBadge.loadWithGlide(strTeamBadge)
       tvClubName.text = strTeam
       tvSince.text = "Since $intFormedYear"
 
@@ -95,9 +86,9 @@ class TeamDetail : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
     teamPlayers.arguments = bundle
     teamOverview.arguments = bundle
     val adapter = FragmentPagerAdapter(supportFragmentManager, listOf(
-        FragmentPagerAdapter.FragmentData("Overview", teamOverview),
-        FragmentPagerAdapter.FragmentData("Players", teamPlayers),
-        FragmentPagerAdapter.FragmentData("Matches", teamMatches)
+        FragmentPagerAdapter.FragmentData(getString(R.string.overview), teamOverview),
+        FragmentPagerAdapter.FragmentData(getString(R.string.players), teamPlayers),
+        FragmentPagerAdapter.FragmentData(getString(R.string.matches), teamMatches)
     ))
 
     tabContainer.adapter = adapter
@@ -145,7 +136,7 @@ class TeamDetail : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
         id = returnedId.toString()
       }
       isFavorite = true
-      snackbar(tabContainer, "Favorited!").show()
+      snackbar(tabContainer, getString(R.string.favorited)).show()
       processedFavoriteId = -1L
     } catch (e: Exception) {
       snackbar(tabContainer, e.localizedMessage).show()
@@ -160,7 +151,7 @@ class TeamDetail : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
       }
       isFavorite = false
       processedFavoriteId = id.toLong()
-      snackbar(tabContainer, "Removed from favorite!")
+      snackbar(tabContainer, getString(R.string.removed_from_favorite))
     } catch (e: Exception) {
       snackbar(tabContainer, e.localizedMessage).show()
     }

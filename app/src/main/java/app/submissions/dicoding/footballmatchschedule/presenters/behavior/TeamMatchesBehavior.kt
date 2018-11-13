@@ -1,7 +1,6 @@
 package app.submissions.dicoding.footballmatchschedule.presenters.behavior
 
 import app.submissions.dicoding.footballmatchschedule.db.tables.Favorites
-import app.submissions.dicoding.footballmatchschedule.models.Event
 
 abstract class TeamMatchesBehavior : BaseNetworkRequestBehavior {
 

@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import app.submissions.dicoding.footballmatchschedule.R
 import app.submissions.dicoding.footballmatchschedule.exts.fontGoogleProductBold
+import app.submissions.dicoding.footballmatchschedule.exts.loadWithGlide
 import app.submissions.dicoding.footballmatchschedule.models.League
-import com.bumptech.glide.Glide
 
 class ImageTitleSpinnerAdapter(private val leagues: List<League>) : BaseAdapter() {
 
@@ -34,14 +34,16 @@ class ImageTitleSpinnerAdapter(private val leagues: List<League>) : BaseAdapter(
 
   override fun getCount(): Int = leagues.size
 
-  class ViewHolder(private val view: View) {
+  class ViewHolder(view: View) {
     private val image: ImageView = view.findViewById(R.id.ivDesc)
     private val text: TextView = view.findViewById(R.id.tvDesc)
 
     fun bind(league: League) {
-      text.text = league.strLeague
-      text.fontGoogleProductBold()
-      Glide.with(view.context).load(league.badge).into(image)
+      league.apply {
+        text.text = strLeague
+        text.fontGoogleProductBold()
+        image.loadWithGlide(badge)
+      }
     }
 
   }

@@ -9,12 +9,10 @@ import app.submissions.dicoding.footballmatchschedule.R
 import app.submissions.dicoding.footballmatchschedule.layouts.PlayerItemLineup.WhichPlayer.AWAY
 import app.submissions.dicoding.footballmatchschedule.layouts.PlayerItemLineup.WhichPlayer.HOME
 import org.jetbrains.anko.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
 
 class PlayerItemLineup(private val playerName: String, private val which: WhichPlayer) : AnkoComponent<Context> {
   override fun createView(ui: AnkoContext<Context>): View = with(ui) {
     return verticalLayout {
-      onClick {  }
       lparams(width = dip(0), height = wrapContent, weight = 1f)
       view {
         background = when (which) {

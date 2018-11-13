@@ -66,8 +66,8 @@ class HeaderBodyRecyclerViewAdapter(private val matches: List<DataType>,
         tvTime.text = body.localTime()
         tvHome.text = body.strHomeTeam
         tvAway.text = body.strAwayTeam
-        ivHome.loadWithGlide(body.homeBadge ?: "")
-        ivAway.loadWithGlide(body.awayBadge ?: "")
+        ivHome.loadWithGlide(body.homeBadge)
+        ivAway.loadWithGlide(body.awayBadge)
 
         setOnClickListener { listener(data.body) }
       }

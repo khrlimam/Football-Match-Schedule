@@ -9,8 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import app.submissions.dicoding.footballmatchschedule.NextMatchDetail
-import app.submissions.dicoding.footballmatchschedule.R
 import app.submissions.dicoding.footballmatchschedule.PreviousMatchDetail
+import app.submissions.dicoding.footballmatchschedule.R
 import app.submissions.dicoding.footballmatchschedule.TeamDetail
 import app.submissions.dicoding.footballmatchschedule.adapters.FavoritesAdapter
 import app.submissions.dicoding.footballmatchschedule.constants.Constants

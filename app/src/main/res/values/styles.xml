@@ -27,18 +27,6 @@
     <item name="android:textStyle">bold</item>
   </style>
 
-  <style name="MyTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-  <style name="MyTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-  <style name="ToolbarTitleAppearance" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
-    <item name="android:textSize">22sp</item>
-  </style>
-
-  <style name="ToolbarSubtitleAppearance" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
-    <item name="android:textSize">12sp</item>
-  </style>
-
   <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
   <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

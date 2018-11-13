@@ -10,7 +10,9 @@ import app.submissions.dicoding.footballmatchschedule.exts.fontGoogleProductRegu
 import app.submissions.dicoding.footballmatchschedule.exts.loadWithGlide
 import kotlinx.android.synthetic.main.linear_image_label.view.*
 
-class InlineImageLabelRecyclerViewAdapter(private val data: List<InlineImageViewDataHolder>, private val onclick: (Int) -> Unit) : RecyclerView.Adapter<ViewHolder>() {
+class InlineImageLabelRecyclerViewAdapter(private val data: List<InlineImageViewDataHolder>,
+                                          private val onclick: (Int) -> Unit)
+  : RecyclerView.Adapter<ViewHolder>() {
   override fun getItemCount(): Int = data.size
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {

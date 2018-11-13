@@ -2,7 +2,7 @@ package app.submissions.dicoding.footballmatchschedule.presenters.behavior
 
 import app.submissions.dicoding.footballmatchschedule.models.Team
 
-abstract class SearchBehavior:BaseNetworkRequestBehavior {
+abstract class SearchBehavior : BaseNetworkRequestBehavior {
 
   abstract fun showData(teams: List<Team>)
 
