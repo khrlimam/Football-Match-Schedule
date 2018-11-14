@@ -26,7 +26,7 @@
   </android.support.design.widget.AppBarLayout>
 
   <include
-    layout="@layout/recycler_view_with_no_data_bg"
+    layout="@layout/recycler_view_with_context_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior" />

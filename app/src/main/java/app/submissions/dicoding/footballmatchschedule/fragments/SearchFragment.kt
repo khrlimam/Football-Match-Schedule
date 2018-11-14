@@ -2,6 +2,7 @@ package app.submissions.dicoding.footballmatchschedule.fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,7 +19,7 @@ import app.submissions.dicoding.footballmatchschedule.exts.visible
 import app.submissions.dicoding.footballmatchschedule.models.Team
 import app.submissions.dicoding.footballmatchschedule.presenters.SearchPresenter
 import app.submissions.dicoding.footballmatchschedule.presenters.behavior.SearchBehavior
-import kotlinx.android.synthetic.main.recycler_view_with_no_data_bg.*
+import kotlinx.android.synthetic.main.recycler_view_with_context_bg.*
 import kotlinx.android.synthetic.main.search_fragment.*
 import org.jetbrains.anko.okButton
 import org.jetbrains.anko.support.v4.alert
@@ -38,6 +39,8 @@ class SearchFragment : Fragment(), TextWatcher {
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    context?.let { ivContextImage.setImageDrawable(ContextCompat.getDrawable(it, R.drawable.ic_search_grey_24dp)) }
+    tvContextTitle.text = getString(R.string.search_team)
     etSearch.requestFocus()
     etSearch.addTextChangedListener(this)
     etSearch.setOnEditorActionListener { v, _, _ ->

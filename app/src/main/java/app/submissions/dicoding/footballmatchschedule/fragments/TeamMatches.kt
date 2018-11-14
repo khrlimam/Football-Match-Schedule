@@ -18,7 +18,7 @@ import app.submissions.dicoding.footballmatchschedule.exts.visible
 import app.submissions.dicoding.footballmatchschedule.models.Team
 import app.submissions.dicoding.footballmatchschedule.presenters.TeamMatchesPresenter
 import app.submissions.dicoding.footballmatchschedule.presenters.behavior.TeamMatchesBehavior
-import kotlinx.android.synthetic.main.recycler_view_with_no_data_bg.*
+import kotlinx.android.synthetic.main.recycler_view_with_context_bg.*
 import org.jetbrains.anko.okButton
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.startActivity
@@ -35,7 +35,7 @@ class TeamMatches : Fragment() {
   private val presenter: TeamMatchesPresenter = TeamMatchesPresenter(MyBehavior())
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.recycler_view_with_no_data_bg, container, false)
+    return inflater.inflate(R.layout.recycler_view_with_context_bg, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

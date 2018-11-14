@@ -18,7 +18,7 @@ import app.submissions.dicoding.footballmatchschedule.db.tables.Favorites
 import app.submissions.dicoding.footballmatchschedule.exts.database
 import app.submissions.dicoding.footballmatchschedule.exts.gone
 import app.submissions.dicoding.footballmatchschedule.exts.visible
-import kotlinx.android.synthetic.main.recycler_view_with_no_data_bg.*
+import kotlinx.android.synthetic.main.recycler_view_with_context_bg.*
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.support.v4.intentFor
