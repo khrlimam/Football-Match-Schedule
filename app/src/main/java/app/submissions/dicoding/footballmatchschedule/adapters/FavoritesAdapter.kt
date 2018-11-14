@@ -19,7 +19,9 @@ import kotlinx.android.synthetic.main.next_match_item.view.*
 import kotlinx.android.synthetic.main.single_news_item.view.*
 import kotlinx.android.synthetic.main.team_item.view.*
 
-class FavoritesAdapter(val favorites: List<Favorites>, val click: (Int) -> Unit) : RecyclerView.Adapter<BaseFavoriteViewHolder>() {
+class FavoritesAdapter(val favorites: List<Favorites>,
+                       private val click: (Int) -> Unit)
+  : RecyclerView.Adapter<BaseFavoriteViewHolder>() {
 
   private lateinit var holder: BaseFavoriteViewHolder
 

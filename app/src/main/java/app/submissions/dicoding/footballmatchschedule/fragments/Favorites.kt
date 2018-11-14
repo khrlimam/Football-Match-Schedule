@@ -17,7 +17,8 @@ import app.submissions.dicoding.footballmatchschedule.constants.Constants
 import app.submissions.dicoding.footballmatchschedule.db.tables.Favorites
 import app.submissions.dicoding.footballmatchschedule.exts.database
 import app.submissions.dicoding.footballmatchschedule.exts.gone
-import kotlinx.android.synthetic.main.recycler_view.*
+import app.submissions.dicoding.footballmatchschedule.exts.visible
+import kotlinx.android.synthetic.main.recycler_view_with_no_data_bg.*
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.support.v4.intentFor
@@ -41,13 +42,11 @@ class Favorites : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     rvRecyclerView.adapter = adapter
     rvRecyclerView.layoutManager = LinearLayoutManager(context)
-    shimmer.stopShimmer()
-    shimmer.gone()
     database()?.use {
       val elements = select(Favorites.TABLE_NAME).parseList(classParser<Favorites>())
       favorites.clear()
       favorites.addAll(elements)
-      adapter.notifyDataSetChanged()
+      notifyDataSetChanged()
     }
   }
 
@@ -58,9 +57,15 @@ class Favorites : Fragment() {
       val returnedObject = favorites.withIndex().firstOrNull { it.value.id == favoriteId }
       returnedObject?.let {
         favorites.removeAt(it.index)
-        adapter.notifyDataSetChanged()
+        notifyDataSetChanged()
       }
     }
+  }
+
+  private fun notifyDataSetChanged() {
+    adapter.notifyDataSetChanged()
+    if (favorites.size <= 0) shimmer.visible()
+    else shimmer.gone()
   }
 
 

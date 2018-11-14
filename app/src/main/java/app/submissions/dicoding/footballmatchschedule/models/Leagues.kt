@@ -1,6 +1,5 @@
 package app.submissions.dicoding.footballmatchschedule.models
 
-import android.util.Log
 import app.submissions.dicoding.footballmatchschedule.exts.handleSafely
 import app.submissions.dicoding.footballmatchschedule.requests.to.Lookup
 import com.google.gson.annotations.Expose
@@ -26,13 +25,12 @@ data class League(
     return strLeague
   }
 
-  fun getBadge(idLeague: String, badgeGot: (String?) -> Unit) {
+  fun getBadge(badgeGot: (String?) -> Unit) {
     Lookup.Request.get.byLeague(idLeague)
         .handleSafely()
         .subscribe { response ->
           response as LeagueDetails
           val league = response.leagues?.get(0)
-          Log.i("leaguebadge", "${league?.strBadge} -")
           badgeGot(league?.strBadge)
         }.isDisposed
   }

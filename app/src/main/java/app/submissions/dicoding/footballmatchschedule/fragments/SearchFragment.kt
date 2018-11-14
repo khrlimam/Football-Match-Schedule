@@ -38,6 +38,7 @@ class SearchFragment : Fragment(), TextWatcher {
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    etSearch.requestFocus()
     etSearch.addTextChangedListener(this)
     etSearch.setOnEditorActionListener { v, _, _ ->
       search(v.text.toString())

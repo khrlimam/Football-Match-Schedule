@@ -9,7 +9,6 @@ import org.jetbrains.anko.db.*
 class MyDatabaseOpenHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, DB_NAME, null, VERSION) {
 
   override fun onCreate(db: SQLiteDatabase?) {
-    Log.i("tables", "creating tables")
     db?.createTable(Favorites.TABLE_NAME, true,
         Favorites.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
         Favorites.DATA to TEXT,
@@ -18,7 +17,6 @@ class MyDatabaseOpenHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, DB_NAME,
   }
 
   override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-    Log.i("tables", "dropping tables")
     db?.dropTable(Favorites.TABLE_NAME, true)
   }
 

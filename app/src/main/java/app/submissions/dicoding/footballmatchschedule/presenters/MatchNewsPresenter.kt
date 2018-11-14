@@ -27,7 +27,7 @@ class MatchNewsPresenter(private val behavior: MatchNewsBehavior) {
               .forEach { league ->
                 league as League
                 with(league) {
-                  getBadge(idLeague) {
+                  getBadge {
                     badge = it
                     ++counter
                     if (counter == onlySportLeagues.count())

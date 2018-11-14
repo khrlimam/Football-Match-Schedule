@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import app.submissions.dicoding.footballmatchschedule.exts.database
 import app.submissions.dicoding.footballmatchschedule.fragments.Favorites
 import app.submissions.dicoding.footballmatchschedule.fragments.MatchNews
 import app.submissions.dicoding.footballmatchschedule.fragments.SearchFragment
@@ -37,6 +38,13 @@ class Home : AppCompatActivity() {
     setContentView(R.layout.activity_home)
     navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener(savedInstanceState))
     navigation.selectedItemId = R.id.navigation_home
+    initDb()
+  }
+
+  private fun initDb() {
+    database().use {
+      database().onCreate(this)
+    }
   }
 
   private fun changeFrameContent(fragment: Fragment, bundle: Bundle?) {

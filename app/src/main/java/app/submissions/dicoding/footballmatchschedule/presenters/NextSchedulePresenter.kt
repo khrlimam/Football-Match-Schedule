@@ -49,23 +49,29 @@ class NextSchedulePresenter(private val behavior: NextScheduleBehavior) {
               .forEach { event ->
                 event as Event
                 with(event) {
-                  // make this process serial to make sure the counter added once
+                  // make get badge process as parallel. Make it race, so either process is completed reshow data
                   teamAwayBadge {
                     awayBadge = it
-                    teamHomeBadge {
-                      homeBadge = it
-                      ++counter
-                      if (counter == data.events.size) {
-                        // show the data again after all images are loaded
-                        behavior.showData(getGroupedDataItem(data.events))
-                        //reset counter anticipating user request the data again with the same object state
-                        counter = 0
-                      }
-                    }
+                    ++counter
+                    reshowDataAfterImageLoaded(data.events)
+                  }
+                  teamHomeBadge {
+                    homeBadge = it
+                    ++counter
+                    reshowDataAfterImageLoaded(data.events)
                   }
                 }
               }
         }, { onError(it.message) },
             { behavior.hideLoading() })
+  }
+
+  private fun reshowDataAfterImageLoaded(data: List<Event>) {
+    if (counter == data.size) {
+      // show the data again after all images are loaded
+      behavior.showData(getGroupedDataItem(data))
+      //reset counter anticipating user request the data again with the same object state
+      counter = 0
+    }
   }
 }
